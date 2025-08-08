@@ -50,38 +50,42 @@ class _ProfileRoleScreenState extends State<ProfileRoleScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = 0;
-                            });
-                          },
-                          child: CustomRoleCard(
-                            img: CustomImage(
-                              imageSrc: AppImages.object_1,
-                              height: 100,
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedIndex = 0;
+                              });
+                            },
+                            child: CustomRoleCard(
+                              img: CustomImage(
+                                imageSrc: AppImages.object_1,
+                                height: 100,
+                              ),
+                              title: 'HOST',
+                              subtitle: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                              isSelected: selectedIndex == 0,
                             ),
-                            title: 'HOST',
-                            subtitle: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                            isSelected: selectedIndex == 0,
                           ),
                         ),
                         const SizedBox(width: 20),
 
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = 1;
-                            });
-                          },
-                          child: CustomRoleCard(
-                            img: CustomImage(
-                              imageSrc: AppImages.object_2,
-                              height: 100,
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedIndex = 1;
+                              });
+                            },
+                            child: CustomRoleCard(
+                              img: CustomImage(
+                                imageSrc: AppImages.object_2,
+                                height: 100,
+                              ),
+                              title: 'DMOVER',
+                              subtitle: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                              isSelected: selectedIndex == 1,
                             ),
-                            title: 'DMOVER',
-                            subtitle: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                            isSelected: selectedIndex == 1,
                           ),
                         ),
                       ],

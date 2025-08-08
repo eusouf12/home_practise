@@ -26,7 +26,7 @@ class CustomTextField extends StatefulWidget {
     this.suffixIcon,
     this.suffixIconColor,
     this.fieldBorderRadius = 10,
-    this.fieldBorderColor = Colors.transparent, //const Color(0xffB5D8EE),
+    this.fieldBorderColor = Colors.transparent,
     this.isPassword = false,
     this.isPrefixIcon = true,
     this.readOnly = false,
@@ -38,7 +38,9 @@ class CustomTextField extends StatefulWidget {
     this.weight = 385,
     this.fontSize = 14,
     this.fontWeight = FontWeight.w400,
-
+    this.prefixIconLeftPadding = 0,
+    this.prefixIconRightPadding = 0,
+    this.color = AppColors.titleTextClr,
   });
 
   final TextEditingController? textEditingController;
@@ -71,7 +73,10 @@ class CustomTextField extends StatefulWidget {
   final double? height;
   final double? weight;
   final double? fontSize;
+  final Color? color;
   final FontWeight? fontWeight;
+  final double prefixIconLeftPadding;
+  final double prefixIconRightPadding;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -97,11 +102,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
         keyboardType: widget.keyboardType,
         textInputAction: widget.textInputAction,
         cursorColor: widget.cursorColor,
-        style: widget.inputTextStyle ??
+        style:
+            widget.inputTextStyle ??
             GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: AppColors.black_03),
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: AppColors.black_03,
+            ),
         onChanged: widget.onChanged,
         maxLines: widget.maxLines,
         obscureText: widget.isPassword ? obscureText : false,
@@ -112,29 +119,42 @@ class _CustomTextFieldState extends State<CustomTextField> {
           isDense: widget.isDens,
           errorMaxLines: 2,
           hintText: widget.hintText,
-          hintStyle: widget.hintStyle ??
+          hintStyle:
+              widget.hintStyle ??
               GoogleFonts.inter(
-                  fontSize: widget.fontSize,
-                  fontWeight: widget.fontWeight,
-                  color: AppColors.titleTextClr),
+                fontSize: widget.fontSize,
+                fontWeight: widget.fontWeight,
+                color: widget.color,
+              ),
           fillColor: widget.fillColor,
           filled: true,
-          prefixIcon: widget.prefixIcon,
+          prefixIcon: widget.prefixIcon != null
+              ? Padding(
+                  padding: EdgeInsets.only(
+                    left: widget.prefixIconLeftPadding,
+                    right: widget.prefixIconRightPadding,
+                  ),
+                  child: widget.prefixIcon,
+                )
+              : null,
           suffixIcon: widget.isPassword
               ? GestureDetector(
-            onTap: toggle,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Icon(obscureText ? Icons.visibility_off : Icons.visibility, color: Colors.grey,),
+                  onTap: toggle,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      obscureText ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.grey,
+                    ),
 
-              /*SvgPicture.asset(
+                    /*SvgPicture.asset(
                       obscureText ? AppIcons.eyeOff : AppIcons.eye,
                       height: 22,
                       width: 22,
                       color: AppColors.black,
                     ),*/
-            ),
-          )
+                  ),
+                )
               : widget.suffixIcon,
           suffixIconColor: widget.suffixIconColor,
           border: OutlineInputBorder(

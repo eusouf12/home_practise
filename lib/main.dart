@@ -35,9 +35,9 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
-      designSize: const Size(375, 812),
+      designSize: const Size(393, 842),
       child: GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'Event Management',
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.white,
           appBarTheme: const AppBarTheme(

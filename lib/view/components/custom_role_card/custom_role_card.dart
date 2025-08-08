@@ -19,8 +19,8 @@ class CustomRoleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 223,
-      width: 167,
+      height: 241,
+      width: 169,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: isSelected ? AppColors.green_01 : AppColors.white,
@@ -39,7 +39,7 @@ class CustomRoleCard extends StatelessWidget {
             ),
             CustomText(
               text: subtitle,
-              maxLines: 4,
+              maxLines: 5,
               fontSize: 11,
               color: isSelected ? AppColors.white : AppColors.grey,
             )
