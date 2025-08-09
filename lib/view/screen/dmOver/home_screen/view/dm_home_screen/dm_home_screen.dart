@@ -4,9 +4,9 @@ import 'package:event_management/utils/app_icons/app_icons.dart';
 import 'package:event_management/utils/app_images/app_images.dart';
 import 'package:event_management/view/components/custom_gradient/custom_gradient.dart';
 import 'package:event_management/view/components/custom_images/custom_images.dart';
+import 'package:event_management/view/components/custom_nav_bar/dm_navbar.dart';
 import 'package:event_management/view/components/custom_test_field/custom_text_field.dart';
 import 'package:event_management/view/components/custom_text/custom_text.dart';
-import 'package:event_management/view/screen/dmOver/home_screen/widget/dm_navbar/dm_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -57,7 +57,7 @@ class _DmHomeScreenState extends State<DmHomeScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed(AppRoutes.profileRoleScreen);
+                  Get.toNamed(AppRoutes.notificationScreen);
                 },
                 child: Container(
                   width: 40,
@@ -107,37 +107,41 @@ class _DmHomeScreenState extends State<DmHomeScreen> {
 
               Row(
                 children: [
-                  CustomTextField(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.hostHomeScreen);
-                    },
-                    hintText: "Event Filters",
-                    color: AppColors.black,
-                    height: 43,
-                    weight: 180,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    fieldBorderRadius: 50,
-                    prefixIcon: Icon(
-                      Icons.menu_outlined,
+                  Expanded(
+                    child: CustomTextField(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.hostHomeScreen);
+                      },
+                      hintText: "Event Filters",
                       color: AppColors.black,
+                      height: 43,
+                      weight: 180,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      fieldBorderRadius: 50,
+                      prefixIcon: Icon(
+                        Icons.menu_outlined,
+                        color: AppColors.black,
+                      ),
+                      suffixIcon: Icon(
+                        Icons.arrow_drop_down,
+                        color: AppColors.black,
+                      ),
+                      readOnly: true,
                     ),
-                    suffixIcon: Icon(
-                      Icons.arrow_drop_down,
-                      color: AppColors.black,
-                    ),
-                    readOnly: true,
                   ),
                   SizedBox(width: 10),
 
-                  CustomTextField(
-                    height: 43,
-                    weight: 159,
-                    color: AppColors.black,
-                    hintText: "Bar&Resturent",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    fieldBorderRadius: 50,
+                  Expanded(
+                    child: CustomTextField(
+                      height: 43,
+                      weight: 159,
+                      color: AppColors.black,
+                      hintText: "Bar & Resturent",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      fieldBorderRadius: 50,
+                    ),
                   ),
                 ],
               ),
@@ -198,13 +202,13 @@ class _DmHomeScreenState extends State<DmHomeScreen> {
 
               CustomImage(
                 imageSrc: AppImages.map,
-                height: 287,  
+                height: 287,
               ),
-              
-           ],
+
+            ],
           ),
         ),
-             bottomNavigationBar:DmNavBar(currentIndex: 0),
+        bottomNavigationBar:DmNavBar(currentIndex: 0),
 
       ),
     );
