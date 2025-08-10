@@ -12,9 +12,9 @@ class _ItalianoScreenState extends State<ItalianoScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomGradient(
-      child: Scaffold(
+        child: Scaffold(
 
-      )
-      );
+        )
+    );
   }
 }

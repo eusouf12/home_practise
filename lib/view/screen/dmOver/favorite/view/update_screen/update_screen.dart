@@ -12,9 +12,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomGradient(
-      child: Scaffold(
+        child: Scaffold(
 
-      )
-      );
+        )
+    );
   }
 }

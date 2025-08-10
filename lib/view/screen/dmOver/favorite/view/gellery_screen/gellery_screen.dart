@@ -12,9 +12,9 @@ class _GelleryScreenState extends State<GelleryScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomGradient(
-      child: Scaffold(
+        child: Scaffold(
 
-      )
-      );
+        )
+    );
   }
 }

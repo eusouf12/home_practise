@@ -2,24 +2,23 @@ import 'package:event_management/view/components/custom_gradient/custom_gradient
 import 'package:event_management/view/components/custom_nav_bar/dm_navbar.dart';
 import 'package:flutter/material.dart';
 
-class MessageScreen extends StatefulWidget {
-  const MessageScreen({super.key});
+class SocialMediaScreen extends StatefulWidget {
+  const SocialMediaScreen({super.key});
 
   @override
-  State<MessageScreen> createState() => _MessageScreenState();
+  State<SocialMediaScreen> createState() => _SocialMediaScreenState();
 }
 
-class _MessageScreenState extends State<MessageScreen> {
+class _SocialMediaScreenState extends State<SocialMediaScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomGradient(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(title: Text("message"),backgroundColor: Colors.transparent,
+        appBar: AppBar(title: Text("social"),backgroundColor: Colors.transparent,
           automaticallyImplyLeading: true,),
 
-
-        bottomNavigationBar:DmNavBar(currentIndex: 2),
+        bottomNavigationBar:DmNavBar(currentIndex: 3),
       ),
     );
   }

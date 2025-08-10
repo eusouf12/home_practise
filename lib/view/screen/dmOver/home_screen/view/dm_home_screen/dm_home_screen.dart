@@ -83,7 +83,7 @@ class _DmHomeScreenState extends State<DmHomeScreen> {
 
         //body
         body: Padding(
-          padding: const EdgeInsets.only(left: 20.12, right: 20.12, top: 0),
+          padding: const EdgeInsets.only(left: 20.12, right: 20.12, top: 0,bottom: 27),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -98,6 +98,7 @@ class _DmHomeScreenState extends State<DmHomeScreen> {
               CustomTextField(
                 hintText: 'Explore events',
                 height: 60,
+                weight: double.infinity,
                 fieldBorderRadius: 15,
                 prefixIcon: Icon(Icons.search, color: AppColors.green_01),
                 prefixIconLeftPadding: 33.58,
@@ -176,7 +177,9 @@ class _DmHomeScreenState extends State<DmHomeScreen> {
                 children: [
                   Icon(Icons.circle, size: 8.69, color: AppColors.green_01),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.dmLiveScreen);
+                    },
                     child: CustomText(
                       text: "Live Event",
                       fontSize: 12,
@@ -184,10 +187,13 @@ class _DmHomeScreenState extends State<DmHomeScreen> {
                       color: AppColors.black1,
                     ),
                   ),
+
                   SizedBox(width: 15),
                   Icon(Icons.circle, size: 8.69, color: AppColors.grey),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.dmUpcomingEventScreen);
+                    },
 
                     child: CustomText(
                       text: "Up Coming Live",
@@ -200,9 +206,13 @@ class _DmHomeScreenState extends State<DmHomeScreen> {
               ),
               SizedBox(height: 6),
 
-              CustomImage(
-                imageSrc: AppImages.map,
-                height: 287,
+              Expanded(
+                child: CustomImage(
+                  imageSrc: AppImages.map,
+                  height: 287,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                ),
               ),
 
             ],

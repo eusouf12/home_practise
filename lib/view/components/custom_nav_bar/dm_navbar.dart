@@ -1,14 +1,14 @@
-import 'package:event_management/utils/app_colors/app_colors.dart';
-import 'package:event_management/utils/app_icons/app_icons.dart';
-import 'package:event_management/view/screen/dmOver/favourite/view/favourite_screen.dart';
+import 'package:event_management/view/screen/dmOver/favorite/view/favourite_screen/favourite_screen.dart';
 import 'package:event_management/view/screen/dmOver/home_screen/view/dm_home_screen/dm_home_screen.dart';
-import 'package:event_management/view/screen/dmOver/message/view/message_screen/message_screen.dart';
+import 'package:event_management/view/screen/dmOver/message/view/message_screen/messege_screen.dart';
 import 'package:event_management/view/screen/dmOver/profile/view/profile_screen/profile_screen.dart';
-import 'package:event_management/view/screen/dmOver/social/view/social_media_screen/social_media_screen.dart';
+import 'package:event_management/view/screen/dmOver/social/view/social_media/social_media_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../../../utils/app_colors/app_colors.dart';
+import '../../../utils/app_icons/app_icons.dart';
 
 class DmNavBar extends StatefulWidget {
   final int currentIndex;
@@ -46,15 +46,7 @@ class _DmNavBarState extends State<DmNavBar> {
           topLeft: Radius.circular(40.r),
           topRight: Radius.circular(40.r),
         ),
-        border: Border.all(color: AppColors.grey_03, width: .2),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            spreadRadius: 1,
-            blurRadius: 0,
-            offset: const Offset(3, 0),
-          ),
-        ],
+
       ),
       height: 85.h,
       width: MediaQuery.of(context).size.width,
@@ -85,10 +77,9 @@ class _DmNavBarState extends State<DmNavBar> {
                     icons[index],
                     height: 25.h,
                     width: 25.w,
-                    colorFilter: ColorFilter.mode(
-                      index == bottomNavIndex ? Colors.black : Colors.white,
-                      BlendMode.srcIn,
-                    ),
+                    color: index == bottomNavIndex
+                        ? Colors.black
+                        : Colors.white,
                   ),
                 ),
               ],
