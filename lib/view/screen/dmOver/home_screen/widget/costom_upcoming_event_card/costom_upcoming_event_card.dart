@@ -48,7 +48,7 @@ class _CustomUpcomingEventCardState extends State<CustomUpcomingEventCard> {
                     children: [
                       CustomText(
                         text: 'Summer Music Festival',
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                       Container(
@@ -61,7 +61,7 @@ class _CustomUpcomingEventCardState extends State<CustomUpcomingEventCard> {
                         ),
                         child: CustomText(
                           text: 'upcoming',
-                          fontSize: 12.sp,
+                          fontSize: 12,
                           color: AppColors.brown2,
                         ),
                       ),
@@ -81,7 +81,7 @@ class _CustomUpcomingEventCardState extends State<CustomUpcomingEventCard> {
                       SizedBox(width: 10.w),
                       CustomText(
                         text: 'Aug 15, 2025 • 4:00PM',
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         color: AppColors.black2,
                       ),
                     ],
@@ -100,7 +100,7 @@ class _CustomUpcomingEventCardState extends State<CustomUpcomingEventCard> {
                       SizedBox(width: 10.w),
                       CustomText(
                         text: '245 attendees',
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         color: AppColors.black2,
                       ),
                     ],

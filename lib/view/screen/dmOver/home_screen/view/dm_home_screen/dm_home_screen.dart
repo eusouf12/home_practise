@@ -111,7 +111,7 @@ class _DmHomeScreenState extends State<DmHomeScreen> {
                   Expanded(
                     child: CustomTextField(
                       onTap: () {
-                        Get.toNamed(AppRoutes.hostHomeScreen);
+                        Get.toNamed(AppRoutes.dmFilter);
                       },
                       hintText: "Event Filters",
                       color: AppColors.black,

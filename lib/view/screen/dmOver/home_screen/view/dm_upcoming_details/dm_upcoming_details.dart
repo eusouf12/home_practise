@@ -19,6 +19,7 @@ class _DmUpcomingDetailsState extends State<DmUpcomingDetails> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Scaffold(
           backgroundColor: Colors.transparent,
+
           appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,

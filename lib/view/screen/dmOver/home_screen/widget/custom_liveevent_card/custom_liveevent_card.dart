@@ -48,33 +48,36 @@ class _CustomLiveEventCardState extends State<CustomLiveEventCard> {
                     children: [
                       CustomText(
                         text: 'Summer Music Festival',
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
-                      Container(
-                        height: 27.h,
-                        width: 73.w,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppColors.green_01,
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomImage(
-                              imageSrc: AppIcons.live,
-                              imageColor: AppColors.red,
-                              height: 16.h,
-                              width: 16.w,
-                            ),
-                            SizedBox(width: 2.95.w),
-                            CustomText(
-                              text: 'live',
-                              fontSize: 12.sp,
-                              color: AppColors.white,
-                            ),
-                          ],
+                      SizedBox(width: 5.w),
+                      Flexible(
+                        child: Container(
+                          height: 27.h,
+                          width: 70.w,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: AppColors.green_01,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomImage(
+                                imageSrc: AppIcons.live,
+                                imageColor: AppColors.red,
+                                height: 16.h,
+                              
+                              ),
+                              SizedBox(width: 2.95.w),
+                              CustomText(
+                                text: 'live',
+                                fontSize: 12,
+                                color: AppColors.white,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -93,7 +96,7 @@ class _CustomLiveEventCardState extends State<CustomLiveEventCard> {
                       SizedBox(width: 10.w),
                       CustomText(
                         text: 'Aug 15, 2025 • 4:00PM',
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         color: AppColors.black2,
                       ),
                     ],
@@ -112,7 +115,7 @@ class _CustomLiveEventCardState extends State<CustomLiveEventCard> {
                       SizedBox(width: 10.w),
                       CustomText(
                         text: '245 attendees',
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         color: AppColors.black2,
                       ),
                       Spacer(),
