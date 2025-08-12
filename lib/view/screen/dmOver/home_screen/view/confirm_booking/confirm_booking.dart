@@ -1,5 +1,7 @@
+import 'package:event_management/utils/app_icons/app_icons.dart';
 import 'package:event_management/view/components/custom_gradient/custom_gradient.dart';
 import 'package:event_management/view/screen/dmOver/home_screen/widget/custom_booking%20card/custom_booking_card.dart';
+import 'package:event_management/view/screen/dmOver/home_screen/widget/payment_method_card/payment_methood_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../utils/app_colors/app_colors.dart';
@@ -45,19 +47,32 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 SizedBox(height: 20),
                 Column(
                   children: [
-                     CustomBookingCard(
+                    // song+date+location
+                    Column(
+                      children: [
+                        CustomBookingCard(
+                          subtitle: "Experience the best urban music",
+                        ),
+                        SizedBox(height: 16),
+                        CustomBookingCard(
+                          preImg: AssetImage(AppIcons.calender3),
+                          title: "May 28, 2025 – 6:00 PM",
+                          titleFontSize: 14,
+                          titleFontWeight: FontWeight.w400,
+                        ),
+                        SizedBox(height: 16),
+                        CustomBookingCard(
+                          preImg: AssetImage(AppIcons.location3),
+                          title: "Downtown LA",
+                          titleFontSize: 14,
+                          titleFontWeight: FontWeight.w400,
+                        ),
+                      ],
+                    ),
 
-                     ),
-                     SizedBox(height: 16),
-                     CustomBookingCard(
-
-                     ),
-                    SizedBox(height: 16),
-                     CustomBookingCard(
-
-                     )
+                    PaymentMethoodCard()
                   ],
-                )
+                ),
               ],
             ),
           ),
