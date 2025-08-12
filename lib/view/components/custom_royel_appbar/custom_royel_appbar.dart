@@ -30,8 +30,8 @@ class CustomRoyelAppbar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       centerTitle: true,
       scrolledUnderElevation: 0,
-      backgroundColor: backgroundColor ?? Colors.transparent, // ✅ Previously transparent
-      systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith( // ✅ Added for status bar
+      backgroundColor: backgroundColor ?? Colors.transparent,
+      systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
         // statusBarColor: AppColors.white,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.light,

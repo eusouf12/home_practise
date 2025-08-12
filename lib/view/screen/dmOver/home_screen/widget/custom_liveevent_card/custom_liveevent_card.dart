@@ -48,18 +48,18 @@ class _CustomLiveEventCardState extends State<CustomLiveEventCard> {
                     children: [
                       CustomText(
                         text: 'Summer Music Festival',
-                        fontSize: 16,
+                        fontSize: 15,
                         fontWeight: FontWeight.w500,
                       ),
-                      SizedBox(width: 5.w),
-                      Flexible(
+                      Spacer(),
+                      Expanded(
                         child: Container(
                           height: 27.h,
-                          width: 70.w,
+                          width: 73.w,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: AppColors.green_01,
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(12.r),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +68,7 @@ class _CustomLiveEventCardState extends State<CustomLiveEventCard> {
                                 imageSrc: AppIcons.live,
                                 imageColor: AppColors.red,
                                 height: 16.h,
-                              
+                                width: 16.w,
                               ),
                               SizedBox(width: 2.95.w),
                               CustomText(

@@ -8,21 +8,22 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:device_preview/device_preview.dart';
 
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: AppColors.white, 
-    statusBarIconBrightness: Brightness.dark, 
-    statusBarBrightness: Brightness.light, 
+    statusBarColor: AppColors.white, // Set visible background color
+    statusBarIconBrightness: Brightness.dark, // Android: dark icons
+    statusBarBrightness: Brightness.light, // iOS: light background
   ));
   DependencyInjection di = DependencyInjection();
   di.dependencies();
   runApp(
-     DevicePreview(
+    DevicePreview(
       enabled: !const bool.fromEnvironment(
         'dart.vm.product',
-      ), 
-      builder: (context) => const MyApp(), 
+      ),
+      builder: (context) => const MyApp(),
     ),
   );
 }
@@ -30,6 +31,7 @@ void main() async{
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(

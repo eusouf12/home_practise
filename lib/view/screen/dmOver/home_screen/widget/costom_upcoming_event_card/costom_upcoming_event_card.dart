@@ -51,18 +51,20 @@ class _CustomUpcomingEventCardState extends State<CustomUpcomingEventCard> {
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
-                      Container(
-                        height: 27.h,
-                        width: 73.w,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.yellow.shade100,
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                        child: CustomText(
-                          text: 'upcoming',
-                          fontSize: 12,
-                          color: AppColors.brown2,
+                      Expanded(
+                        child: Container(
+                          height: 27.h,
+                          width: 73.w,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.yellow.shade100,
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          child: CustomText(
+                            text: 'upcoming',
+                            fontSize: 12,
+                            color: AppColors.brown2,
+                          ),
                         ),
                       ),
                     ],

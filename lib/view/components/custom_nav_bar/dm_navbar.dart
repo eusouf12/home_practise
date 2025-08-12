@@ -77,6 +77,7 @@ class _DmNavBarState extends State<DmNavBar> {
                     icons[index],
                     height: 25.h,
                     width: 25.w,
+                    // ignore: deprecated_member_use
                     color: index == bottomNavIndex
                         ? Colors.black
                         : Colors.white,

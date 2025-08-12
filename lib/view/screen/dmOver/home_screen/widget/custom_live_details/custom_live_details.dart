@@ -44,7 +44,7 @@ class _CustomLiveDetailsState extends State<CustomLiveDetails> {
                           text: 'Jene Cooper ',
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -53,7 +53,7 @@ class _CustomLiveDetailsState extends State<CustomLiveDetails> {
                           style: TextStyle(
                             color: AppColors.green_01,
                             fontWeight: FontWeight.w500,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                           ),
                         ),
                       ],
@@ -88,7 +88,7 @@ class _CustomLiveDetailsState extends State<CustomLiveDetails> {
                       ),
                       CustomText(
                         text: "  2h ago",
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         color: AppColors.grey2,
                       ),
                     ],

@@ -1,7 +1,6 @@
 import 'package:event_management/view/components/custom_gradient/custom_gradient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../../../utils/app_colors/app_colors.dart';
 import '../../../../../components/custom_button/custom_button.dart';
 import '../../../../../components/custom_text/custom_text.dart';

@@ -1,3 +1,4 @@
+import 'package:event_management/view/screen/dmOver/home_screen/view/confirm_booking/confirm_booking.dart';
 import 'package:event_management/view/screen/dmOver/home_screen/view/dm_filter/dm_filter.dart';
 import 'package:event_management/view/screen/dmOver/home_screen/view/dm_home_screen/dm_home_screen.dart';
 import 'package:event_management/view/screen/dmOver/home_screen/view/dm_live_event/dm_live_event.dart';
@@ -29,6 +30,7 @@ class AppRoutes {
   static const String dmUpcomingEventDetails = '/dmUpcomingEventDetails';
   static const String venueFacility = '/venueFacility';
   static const String dmFilter = '/dmFilter';
+  static const String confirmBooking = '/confirmBooking';
 
 
   static List<GetPage> routes = [
@@ -46,6 +48,7 @@ class AppRoutes {
     GetPage(name: dmUpcomingEventDetails, page: () => DmUpcomingDetails()),
     GetPage(name: venueFacility, page: () => VenueFacility()),
     GetPage(name: dmFilter, page: () => DmFilter()),
+    GetPage(name: confirmBooking, page: () => ConfirmBooking()),
 
 
   ];

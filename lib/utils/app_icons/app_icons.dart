@@ -6,6 +6,8 @@
 
    static const String bank = "$basePath/bank.png";
    static const String calender = "$basePath/calendar.png";
+   static const String calender2 = "$basePath/calender2.png";
+   static const String calender3 = "$basePath/calender3.png";
    static const String clock = "$basePath/clock.png";
    static const String comment = "$basePath/comment.svg";
    static const String comments = "$basePath/comments.png";
@@ -19,6 +21,8 @@
    static const String invite = "$basePath/invite.png";
    static const String join = "$basePath/join.png";
    static const String location = "$basePath/map.png";
+   static const String location2 = "$basePath/location2.png";
+   static const String location3 = "$basePath/location3.png";
    static const String notificartion = "$basePath/notificartion.png";
    static const String users = "$basePath/users.png";
    static const String user = "$basePath/user.svg";
@@ -38,6 +42,8 @@
    static const String bed = "$basePath/bed.png";
    static const String washroom = "$basePath/washroom.png";
    static const String downarraw = "$basePath/downarraw.png";
+   static const String song = "$basePath/song.png";
+   static const String song2 = "$basePath/song2.png";
 
 
 
