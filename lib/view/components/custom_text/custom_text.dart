@@ -12,7 +12,7 @@ class CustomText extends StatelessWidget {
     this.top = 0,
     this.bottom = 0,
     this.fontSize = 12,
-    this.fontWeight = FontWeight.w400,
+    this.fontWeight = FontWeight.w300,
     this.color = Colors.black,
     required this.text,
     this.overflow = TextOverflow.ellipsis,
@@ -38,7 +38,7 @@ class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-      EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
+          EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
       child: Text(
         textAlign: textAlign,
         text,

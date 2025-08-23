@@ -1,42 +1,44 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-import 'package:event_management/view/components/custom_images/custom_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/app_colors/app_colors.dart';
+import '../custom_image/custom_image.dart';
 import '../custom_text/custom_text.dart';
 
 class CustomRoyelAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String? titleName;
   final String? rightIcon;
   final void Function()? rightOnTap;
-  final bool? leftIcon;
+  final bool leftIcon;
+  final bool? showRightIcon;
   final Color? color;
-  final Color? backgroundColor;
 
   const CustomRoyelAppbar({
     super.key,
     this.titleName,
-    this.rightIcon,
+    this.showRightIcon = false,
     this.rightOnTap,
-    this.leftIcon = false,
-    this.color, this.backgroundColor,
+    this.color,
+    this.rightIcon,
+    required this.leftIcon,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: 80,
+      toolbarHeight: 60,
       elevation: 0,
       centerTitle: true,
       scrolledUnderElevation: 0,
-      backgroundColor: backgroundColor ?? Colors.transparent,
+      backgroundColor: Colors.transparent,
+      automaticallyImplyLeading: false,  // ADD THIS LINE
       systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-        // statusBarColor: AppColors.white,
+        statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.light,
       ),
-      actions: [
+      actions: showRightIcon == true
+          ? [
         IconButton(
           onPressed: () {
             rightOnTap?.call();
@@ -45,15 +47,36 @@ class CustomRoyelAppbar extends StatelessWidget implements PreferredSizeWidget {
               ? const SizedBox()
               : CustomImage(imageSrc: rightIcon!, height: 32, width: 32),
         ),
-      ],
-      leading: leftIcon == true
-          ? BackButton(color: color ?? AppColors.primaryTitleTextClr)
+        SizedBox(width: 20.w),
+      ]
+          : null,
+      leading: leftIcon
+          ? GestureDetector(
+        onTap: () => Navigator.of(context).pop(),
+        child: /*Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: CircleAvatar(
+            backgroundColor: AppColors.white,
+            child: BackButton(color: AppColors.black_80,),
+          ),
+        )*/
+
+        Container(
+          margin: EdgeInsets.only(left: 10.w),
+        //  padding: EdgeInsets.all(8),
+          color: Colors.transparent,
+          child: CircleAvatar(
+            backgroundColor: AppColors.white,
+            child: BackButton(color: AppColors.black_80,),
+          ),
+        ),
+      )
           : null,
       title: CustomText(
         text: titleName ?? "",
         fontSize: 20.w,
-        fontWeight: FontWeight.w600,
-        color: color ?? AppColors.primaryTitleTextClr,
+        fontWeight: FontWeight.w500,
+        color: color ?? AppColors.black,
       ),
     );
   }

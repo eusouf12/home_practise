@@ -1,14 +1,15 @@
-import 'package:event_management/view/screen/dmOver/favorite/view/favourite_screen/favourite_screen.dart';
-import 'package:event_management/view/screen/dmOver/home_screen/view/dm_home_screen/dm_home_screen.dart';
-import 'package:event_management/view/screen/dmOver/message/view/message_screen/messege_screen.dart';
-import 'package:event_management/view/screen/dmOver/profile/view/profile_screen/profile_screen.dart';
-import 'package:event_management/view/screen/dmOver/social/view/social_media/social_media_screen.dart';
+import 'package:event_platform/utils/app_icons/app_icons.dart';
+import 'package:event_platform/view/screens/thrillseekers_part/favorite/view/favourite_screen/favourite_screen.dart';
+import 'package:event_platform/view/screens/thrillseekers_part/home_screen/view/dm_home_screen/dm_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../utils/app_colors/app_colors.dart';
-import '../../../utils/app_icons/app_icons.dart';
+import '../../screens/thrillseekers_part/message/message_screen/dm_message_screen.dart';
+import '../../screens/thrillseekers_part/profile/view/profile_screen/dm_profile_screen.dart';
+import '../../screens/thrillseekers_part/social/social_screen/dm_social_screen.dart';
+
 
 class DmNavBar extends StatefulWidget {
   final int currentIndex;
@@ -16,18 +17,19 @@ class DmNavBar extends StatefulWidget {
   const DmNavBar({required this.currentIndex, super.key});
 
   @override
-  State<DmNavBar> createState() => _DmNavBarState();
+  State<DmNavBar> createState() => _UserNavBarState();
 }
 
-class _DmNavBarState extends State<DmNavBar> {
+class _UserNavBarState extends State<DmNavBar> {
   late int bottomNavIndex;
 
   final List<String> icons = [
-    AppIcons.home2,
-    AppIcons.heart,
-    AppIcons.comment,
-    AppIcons.group,
-    AppIcons.user,
+    AppIcons.navHome,
+    AppIcons.heartBold,
+    AppIcons.navMessage,
+    AppIcons.navGlobal,
+    AppIcons.navUser,
+
   ];
 
   @override
@@ -41,12 +43,20 @@ class _DmNavBarState extends State<DmNavBar> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       decoration: BoxDecoration(
-        color: AppColors.green_01,
+        color: AppColors.primary,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40.r),
-          topRight: Radius.circular(40.r),
+          topLeft: Radius.circular(30.r),
+          topRight: Radius.circular(30.r),
         ),
-
+        // border: Border.all(color: AppColors.grey_03, width: .2),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.grey,
+        //     spreadRadius: 1,
+        //     blurRadius: 0,
+        //     offset: const Offset(3, 0),
+        //   ),
+        // ],
       ),
       height: 85.h,
       width: MediaQuery.of(context).size.width,
@@ -56,7 +66,7 @@ class _DmNavBarState extends State<DmNavBar> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(
           icons.length,
-          (index) => InkWell(
+              (index) => InkWell(
             onTap: () => onTap(index),
             borderRadius: BorderRadius.circular(20.r),
             child: Column(
@@ -80,7 +90,7 @@ class _DmNavBarState extends State<DmNavBar> {
                     // ignore: deprecated_member_use
                     color: index == bottomNavIndex
                         ? Colors.black
-                        : Colors.white,
+                        : Color(0xFFD2D2D2),
                   ),
                 ),
               ],
@@ -105,13 +115,13 @@ class _DmNavBarState extends State<DmNavBar> {
           Get.offAll(() => FavouriteScreen());
           break;
         case 2:
-          Get.offAll(() => MessageScreen());
+          Get.offAll(() => DmMessageScreen());
           break;
         case 3:
-          Get.offAll(() => SocialMediaScreen());
+          Get.offAll(() => DmSocialScreen());
           break;
         case 4:
-          Get.to(() => ProfileScreen());
+          Get.to(() => DmProfileScreen());
           break;
       }
     }

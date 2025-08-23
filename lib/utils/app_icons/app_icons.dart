@@ -1,51 +1,46 @@
- class AppIcons {
-   static const String basePath = "assets/icons";
-   ///====================== SplashScreen =========================
-   static const String eye = "$basePath/home2.svg";
-   static const String eyeOff = "$basePath/heart.svg";
+class AppIcons {
+  static const String basePath = "assets/icons";
 
-   static const String bank = "$basePath/bank.png";
-   static const String calender = "$basePath/calendar.png";
-   static const String calender2 = "$basePath/calender2.png";
-   static const String calender3 = "$basePath/calender3.png";
-   static const String clock = "$basePath/clock.png";
-   static const String comment = "$basePath/comment.svg";
-   static const String comments = "$basePath/comments.png";
-   static const String frame = "$basePath/frame.png";
-   static const String heart = "$basePath/heart.svg";
+  static const String eye = "$basePath/eye.svg";
+  static const String eyeOff = "$basePath/eyeOff.svg";
 
-   static const String group = "$basePath/group.svg";
-   static const String live = "$basePath/live.png";
-   static const String home2 = "$basePath/home2.svg";
-   static const String home = "$basePath/home.svg";
-   static const String invite = "$basePath/invite.png";
-   static const String join = "$basePath/join.png";
-   static const String location = "$basePath/map.png";
-   static const String location2 = "$basePath/location2.png";
-   static const String location3 = "$basePath/location3.png";
-   static const String notificartion = "$basePath/notificartion.png";
-   static const String users = "$basePath/users.png";
-   static const String user = "$basePath/user.svg";
-   static const String upload = "$basePath/upload.png";
-   static const String upi = "$basePath/upi.png";
-   static const String ticket = "$basePath/ticket.png";
-   static const String stripe = "$basePath/stripe.png";
-   static const String span = "$basePath/span.png";
-   static const String paypal = "$basePath/paypal.png";
-   static const String pen = "$basePath/pen.png";
-   static const String share = "$basePath/share.png";
-   static const String vector = "$basePath/Vector.png";
-   static const String telegram = "$basePath/telegram.png";
-   static const String wash = "$basePath/wash.png";
-   static const String smoking = "$basePath/smoking.png";
-   static const String eat = "$basePath/eat.png";
-   static const String bed = "$basePath/bed.png";
-   static const String washroom = "$basePath/washroom.png";
-   static const String downarraw = "$basePath/downarraw.png";
-   static const String song = "$basePath/song.png";
-   static const String song2 = "$basePath/song2.png";
+  ///=========================Nab bar Icon ======================
+  static const String google = "$basePath/google.png";
+  static const String notification = "$basePath/notification.svg";
+  static const String plusSquare = "$basePath/plus-square.svg";
+  static const String calender = "$basePath/calender.svg";
+  static const String usersThree = "$basePath/users-three.svg";
+  static const String navCalendar = "$basePath/calendar.svg";
+  static const String navGlobal = "$basePath/global.svg";
+  static const String navHome = "$basePath/home.svg";
+  static const String navMessage = "$basePath/message.svg";
+  static const String navUser = "$basePath/user.svg";
+  static const String mapMarker = "$basePath/map-marker.svg";
+  static const String star = "$basePath/star.svg";
+  static const String icon1 = "$basePath/icon1.svg";
+  static const String icon2 = "$basePath/icon2.svg";
+  static const String icon3 = "$basePath/icon3.svg";
+  static const String icon4 = "$basePath/icon4.svg";
+  static const String menu = "$basePath/menu.svg";
+  static const String completeIcon = "$basePath/completeIcon.svg";
+  static const String ticket = "$basePath/ticket.svg";
+  static const String heartBold = "$basePath/heart-Bold.svg";
+  static const String musice = "$basePath/musice.png";
+  static const String calenderIcon = "$basePath/CalenderIcon.png";
+  static const String locationIcon = "$basePath/locationIcon.png";
+  static const String washroom = "$basePath/washroom.png";
+  static const String hand = "$basePath/hand.png";
+  static const String smoking = "$basePath/smoking.png";
+  static const String food = "$basePath/food.png";
+  static const String rest = "$basePath/rest.png";
+  static const String tikIcon = "$basePath/tikIcon.png";
+  static const String upi = "$basePath/upi.png";
+  static const String wallet = "$basePath/wallet.png";
+  static const String cradit = "$basePath/cradit.png";
+  static const String apple = "$basePath/apple.png";
 
 
 
 
- }
+
+}

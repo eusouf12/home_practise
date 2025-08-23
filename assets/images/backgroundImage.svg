@@ -1,0 +1,44 @@
+<svg width="393" height="852" viewBox="0 0 393 852" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2018_2190)">
+<rect width="393" height="852" fill="url(#paint0_linear_2018_2190)"/>
+<g clip-path="url(#clip1_2018_2190)">
+<rect x="-119.016" y="870" width="888" height="631.033" rx="78.0659" transform="rotate(-90 -119.016 870)" fill="white"/>
+<g filter="url(#filter0_f_2018_2190)">
+<circle cx="480.792" cy="401.605" r="266.725" transform="rotate(-90 480.792 401.605)" fill="#26EE9F"/>
+</g>
+<g filter="url(#filter1_f_2018_2190)">
+<circle cx="361.738" cy="-153.314" r="430.664" transform="rotate(-90 361.738 -153.314)" fill="#C2F2A7"/>
+</g>
+<g filter="url(#filter2_f_2018_2190)">
+<ellipse cx="704.58" cy="430.228" rx="534.101" ry="223.138" transform="rotate(-90 704.58 430.228)" fill="#0BB8DD"/>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_2018_2190" x="-189.274" y="-268.461" width="1340.13" height="1340.13" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="201.67" result="effect1_foregroundBlur_2018_2190"/>
+</filter>
+<filter id="filter1_f_2018_2190" x="-472.266" y="-987.319" width="1668.01" height="1668.01" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="201.67" result="effect1_foregroundBlur_2018_2190"/>
+</filter>
+<filter id="filter2_f_2018_2190" x="78.1007" y="-507.214" width="1252.96" height="1874.88" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="201.67" result="effect1_foregroundBlur_2018_2190"/>
+</filter>
+<linearGradient id="paint0_linear_2018_2190" x1="196.5" y1="0" x2="196.5" y2="852" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-color="#061106"/>
+</linearGradient>
+<clipPath id="clip0_2018_2190">
+<rect width="393" height="852" fill="white"/>
+</clipPath>
+<clipPath id="clip1_2018_2190">
+<rect x="-119.016" y="870" width="888" height="631.033" rx="78.0659" transform="rotate(-90 -119.016 870)" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,0 +1,1 @@
+/Users/mehedi/event_platform/build/app/intermediates/cxx/Debug/4so335m5/obj/arm64-v8a

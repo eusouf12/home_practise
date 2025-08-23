@@ -1,0 +1,1 @@
+/Users/mehedi/event_platform/build/app/intermediates/cxx/RelWithDebInfo/1d4g1j3p/obj/x86_64
