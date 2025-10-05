@@ -29,7 +29,8 @@ class AppConstants {
 
   static const String politicalMove = 'https://images.unsplash.com/photo-1569000971870-7605f9bd8734?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHBvbGl0aWNhbCUyMHN0YXRlbWVudHxlbnwwfHwwfHx8MA%3D%3D';
 
-  static String profileImage = 'https://ntvb.tmsimg.com/assets/assets/866126_v9_bc.jpg';
+  static String profileImage2 = 'https://ntvb.tmsimg.com/assets/assets/866126_v9_bc.jpg';
+  static String profileImage = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
   static String bdFlag = 'https://flagcdn.com/w320/bd.png';
   static String pkFlag = 'https://flagcdn.com/w320/pk.png';
   static String resturentImage = 'https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';

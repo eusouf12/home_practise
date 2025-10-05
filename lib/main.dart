@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'core/app_routes/app_routes.dart';
 import 'core/dependency/dependency_injection.dart';
 import 'utils/app_colors/app_colors.dart';
+import 'package:device_preview/device_preview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +16,11 @@ void main() async {
   ));
   DependencyInjection di = DependencyInjection();
   di.dependencies();
-  runApp(const MyApp());
+  runApp(DevicePreview(
+      enabled: !const bool.fromEnvironment('dart.vm.product',),
+      builder: (context) => const MyApp(),
+  ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -28,6 +33,8 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       designSize: const Size(393, 852),
       child: GetMaterialApp(
+         locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.white,
           appBarTheme: const AppBarTheme(

@@ -16,7 +16,8 @@ class AppImages {
   static const String mapImage = "$basePath/mapImage.png";
   static const String qrImage = "$basePath/qrImage.png";
   static const String map2 = "$basePath/map2.png";
-
+  static const String noImage = "$basePath/noImage.png";
+  static const String pen = "$basePath/pen.png";
 
 
 }

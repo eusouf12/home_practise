@@ -1,2 +1,0 @@
-/Users/mehedi/event_platform/android/app/.cxx/RelWithDebInfo/1d4g1j3p/x86_64/CMakeFiles/edit_cache.dir
-/Users/mehedi/event_platform/android/app/.cxx/RelWithDebInfo/1d4g1j3p/x86_64/CMakeFiles/rebuild_cache.dir

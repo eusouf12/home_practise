@@ -2,8 +2,6 @@
 import 'package:get/get.dart';
 import '../../view/screens/authentication_screen/forgot_screen/forgot_screen.dart';
 import '../../view/screens/authentication_screen/login_screen/login_screen.dart';
-import '../../view/screens/authentication_screen/otp_screen/otp_screeen.dart';
-import '../../view/screens/authentication_screen/set_new_password/set_new_password.dart';
 import '../../view/screens/authentication_screen/sign_up_screen/sign_up_screen.dart';
 import '../../view/screens/choose_role_screen/choose_role_screen.dart';
 import '../../view/screens/host_part/home/create_screen/create_screen.dart';
@@ -61,7 +59,7 @@ class AppRoutes {
   static const String loginScreen = "/LoginScreen";
   static const String signUpScreen = "/SignUpScreen";
   static const String chooseRoleScreen = "/ChooseRoleScreen";
-  static const String otpScreeen = "/OtpScreeen";
+  static const String otpScreen = "/otpScreen";
   static const String setNewPassword = "/SetNewPassword";
 
   ///===========================Host Part==========================
@@ -71,6 +69,8 @@ class AppRoutes {
   static const String socialScreen = "/SocialScreen";
   static const String createPostScreen = "/CreatePostScreen";
   static const String createStoryScreen = "/CreateStoryScreen";
+  static const String hostUpdateScreen = "/HostUpdateScreen";
+  static const String postStory = "/PostStory";
   static const String messageScreen = "/MessageScreen";
   static const String profileScreen = "/ProfileScreen";
   static const String updateProfileScreen = "/UpdateProfileScreen";
@@ -83,6 +83,7 @@ class AppRoutes {
   static const String hostLiveEventDetails = "/HostLiveEventDetails";
   static const String forgotScreen = "/ForgotScreen";
   static const String hostFollowersScreen = "/HostFollowersScreen";
+  static const String reportScreen = "/ReportScreen";
 
 
   ///===========================Thrill seekers Part==========================
@@ -134,8 +135,6 @@ class AppRoutes {
     GetPage(name: signUpScreen, page: () => SignUpScreen()),
     GetPage(name: chooseRoleScreen, page: () => ChooseRoleScreen()),
     GetPage(name: forgotScreen, page: () => ForgotScreen()),
-    GetPage(name: otpScreeen, page: () => OtpScreeen()),
-    GetPage(name: setNewPassword, page: () => SetNewPassword()),
 
     ///===========================Host Part==========================
     GetPage(name: homeScreen, page: () => HomeScreen()),
@@ -162,10 +161,8 @@ class AppRoutes {
     GetPage(name: barDetailsPage, page: () => BarDetailsPage()),
     GetPage(name: chooseRoleScreen, page: () => ChooseRoleScreen()),
     GetPage(name: dmHomeScreen, page: () => DmHomeScreen()),
-    GetPage(name: favouriteScreen, page: () => FavouriteScreen()),
     GetPage(name: messageScreen, page: () => MessageScreen()),
     GetPage(name: socialScreen, page: () => SocialScreen()),
-    GetPage(name: profileScreen2, page: () => ProfileScreen()),
     GetPage(name: notificationScreen, page: () => NotificationScreen()),
      GetPage(name: dmLiveScreen, page: () => DmLiveEvent()),
      GetPage(name: dmLiveEventDetails, page: () => DmLiveEventDetails()),
