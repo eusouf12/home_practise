@@ -24,6 +24,7 @@ class CustomButton extends StatelessWidget {
     this.showSocialButton = false,
     this.imageSrc,
     this.fontWeight,
+    //required bool isLoading,
   });
 
   final double height;
@@ -31,7 +32,7 @@ class CustomButton extends StatelessWidget {
   final Color? fillColor;
   final Color textColor;
   final Color borderColor;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String title;
   final double marginVertical;
   final double marginHorizontal;
@@ -48,7 +49,7 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 0.h),
+        padding: EdgeInsets.symmetric(vertical: 0.0),
         margin: EdgeInsets.symmetric(
             vertical: marginVertical, horizontal: marginHorizontal),
         alignment: Alignment.center,

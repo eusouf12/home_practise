@@ -9,7 +9,6 @@ class LanguageScreen extends StatefulWidget {
   const LanguageScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _LanguageSelectorState createState() => _LanguageSelectorState();
 }
 

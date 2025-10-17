@@ -2,8 +2,11 @@
 import 'package:get/get.dart';
 import '../../view/screens/authentication_screen/forgot_screen/forgot_screen.dart';
 import '../../view/screens/authentication_screen/login_screen/login_screen.dart';
+import '../../view/screens/authentication_screen/otp_screen/otp_screen.dart';
+import '../../view/screens/authentication_screen/set_new_password/set_new_password.dart';
 import '../../view/screens/authentication_screen/sign_up_screen/sign_up_screen.dart';
 import '../../view/screens/choose_role_screen/choose_role_screen.dart';
+import '../../view/screens/host_part/event/update_screen/host_update_screen.dart';
 import '../../view/screens/host_part/home/create_screen/create_screen.dart';
 import '../../view/screens/host_part/home/home_screen/home_screen.dart';
 import '../../view/screens/host_part/home/host_event_details/host_live_event_details.dart';
@@ -19,10 +22,13 @@ import '../../view/screens/host_part/profile/profile_screen/terms_condition_scre
 import '../../view/screens/host_part/profile/profile_screen/update_profile_screen.dart';
 import '../../view/screens/host_part/social/social_screen/create_post_screen.dart';
 import '../../view/screens/host_part/social/social_screen/create_story_screen.dart';
+import '../../view/screens/host_part/social/social_screen/post_story.dart';
+import '../../view/screens/host_part/social/social_screen/report_screen.dart';
 import '../../view/screens/host_part/social/social_screen/social_screen.dart';
 import '../../view/screens/splash_screen/splash_screen.dart';
 import '../../view/screens/thrillseekers_part/favorite/view/favourite_screen/favourite_screen.dart';
 import '../../view/screens/thrillseekers_part/favorite/view/gellery_screen/gallery_screen.dart';
+import '../../view/screens/thrillseekers_part/favorite/view/gellery_screen/upload_screen.dart';
 import '../../view/screens/thrillseekers_part/favorite/view/invited_screen/invited_screen.dart';
 import '../../view/screens/thrillseekers_part/favorite/view/update_screen/update_screen.dart';
 import '../../view/screens/thrillseekers_part/home_screen/view/Nearby_bar_screen/nearby_bar_screen.dart';
@@ -41,6 +47,7 @@ import '../../view/screens/thrillseekers_part/home_screen/view/nearby_restaurant
 import '../../view/screens/thrillseekers_part/home_screen/view/qr_confirm/qr_confirm.dart';
 import '../../view/screens/thrillseekers_part/home_screen/view/restaurant_details_page/restaurant_details_page.dart';
 import '../../view/screens/thrillseekers_part/home_screen/view/venue_facility/venue_facility.dart';
+import '../../view/screens/thrillseekers_part/home_screen/widget/Create_post_live/create_post_live.dart';
 import '../../view/screens/thrillseekers_part/message/message_screen/dm_message_screen.dart';
 import '../../view/screens/thrillseekers_part/profile/view/change_pass_screen/dm_change_password_screen.dart';
 import '../../view/screens/thrillseekers_part/profile/view/dm_ticket_scanner_page/dm_ticket_scanner_page.dart';
@@ -68,6 +75,7 @@ class AppRoutes {
   static const String notificationScreen = "/NotificationScreen";
   static const String socialScreen = "/SocialScreen";
   static const String createPostScreen = "/CreatePostScreen";
+  static const String createPostLive = "/CreatePostLive";
   static const String createStoryScreen = "/CreateStoryScreen";
   static const String hostUpdateScreen = "/HostUpdateScreen";
   static const String postStory = "/PostStory";
@@ -106,7 +114,7 @@ class AppRoutes {
   static const String qrConfirm = '/qrConfirm';
   static const String invitedScreen = '/invitedScreen';
   static const String barRestaurants = '/barRestaurants';
-  static const String bar = '/bar';
+  static const String nonEvent = '/nonEvent';
   static const String restaurants = '/restaurants';
   static const String restaurantDetailsPage = '/restaurantDetailsPage';
   static const String barDetailsPage = '/barDetailsPage';
@@ -127,14 +135,17 @@ class AppRoutes {
   static const String dmChangePasswordScreen = '/DmChangePasswordScreen';
   static const String personProfileScreen = '/PersonProfileScreen';
   static const String dmFollowersScreen = '/DmFollowersScreen';
+  static const String uploadScreen = '/UploadScreen';
 
   static List<GetPage> routes = [
     ///===========================Authentication==========================
     GetPage(name: splashScreen, page: () => SplashScreen()),
     GetPage(name: loginScreen, page: () => LoginScreen()),
     GetPage(name: signUpScreen, page: () => SignUpScreen()),
+    GetPage(name: otpScreen, page: () => OtpScreen()),
     GetPage(name: chooseRoleScreen, page: () => ChooseRoleScreen()),
     GetPage(name: forgotScreen, page: () => ForgotScreen()),
+    GetPage(name: setNewPassword, page: () => SetNewPassword()),
 
     ///===========================Host Part==========================
     GetPage(name: homeScreen, page: () => HomeScreen()),
@@ -142,7 +153,10 @@ class AppRoutes {
     GetPage(name: notificationScreen, page: () => NotificationScreen()),
     GetPage(name: socialScreen, page: () => SocialScreen()),
     GetPage(name: createPostScreen, page: () => CreatePostScreen()),
+    GetPage(name: createPostLive, page: () => CreatePostLive()),
     GetPage(name: createStoryScreen, page: () => CreateStoryScreen()),
+    GetPage(name: hostUpdateScreen, page: () => HostUpdateScreen()),
+    GetPage(name: postStory, page: () => PostStory()),
     GetPage(name: messageScreen, page: () => MessageScreen()),
     GetPage(name: profileScreen, page: () => ProfileScreen()),
     GetPage(name: updateProfileScreen, page: () => UpdateProfileScreen()),
@@ -153,6 +167,7 @@ class AppRoutes {
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
     GetPage(name: hostLiveEventDetails, page: () => HostLiveEventDetails()),
     GetPage(name: hostFollowersScreen, page: () => HostFollowersScreen()),
+    GetPage(name: reportScreen, page: () => ReportScreen()),
     //GetPage(name: supportFeedbackScreen, page: () => SupportFeedbackScreen()),
 
 
@@ -175,7 +190,7 @@ class AppRoutes {
     GetPage(name: qrConfirm, page: () => QrConfirm()),
     GetPage(name: invitedScreen, page: () => InvitedScreen()),
     GetPage(name: barRestaurants, page: () => BarResturentScreen()),
-    GetPage(name: bar, page: () => NearbyBarScreen()),
+    GetPage(name: nonEvent, page: () => NonEventScreen()),
     GetPage(name: restaurants, page: () => NearbyRestaurantsScreen()),
     GetPage(name: restaurantDetailsPage, page: () => RestaurantDetailsPage()),
     GetPage(name: barDetailsPage, page: () => BarDetailsPage()),
@@ -195,5 +210,6 @@ class AppRoutes {
     GetPage(name: dmChangePasswordScreen, page: () => DmChangePasswordScreen()),
     GetPage(name: personProfileScreen, page: () => PersonProfileScreen()),
     GetPage(name: dmFollowersScreen, page: () => DmFollowersScreen()),
+    GetPage(name: uploadScreen, page: () => UploadScreen()),
   ];
 }

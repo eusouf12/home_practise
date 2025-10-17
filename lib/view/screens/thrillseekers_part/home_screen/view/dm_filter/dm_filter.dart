@@ -132,7 +132,7 @@ class _DmFilterState extends State<DmFilter> {
     //  send selectedFilters to your database
     // print("Selected Filters: $selectedFilters");
 
-    Get.to(() => const DmHomeScreen());
+    Get.to(() =>  DmHomeScreen());
   }
 
   void resetFilters() {

@@ -321,13 +321,14 @@ class ApiClient extends GetxService {
     }
   }
 
-  static Future<Response> deleteData(String uri,
-      {Map<String, String>? headers, dynamic body}) async {
-    bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken);
+  static Future<Response> deleteData(String uri, {Map<String, String>? headers, dynamic body}) async
+  {
+    bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken
+  );
 
     var mainHeaders = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $bearerToken'
+      'Authorization': '$bearerToken'
     };
     try {
       debugPrint('====> API Call: $uri\nHeader: ${headers ?? mainHeaders}');

@@ -16,12 +16,12 @@ class _QrConfirmState extends State<DmTicketScannerPage> {
   @override
   Widget build(BuildContext context) {
     return CustomGradient(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar:CustomRoyelAppbar(leftIcon: true, titleName: "Events Check-In",),
-           body: Center(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar:CustomRoyelAppbar(leftIcon: true, titleName: "Events Check-In",),
+         body: Padding(
+           padding: const EdgeInsets.symmetric(horizontal: 10),
+           child: Center(
              child: Column(
                mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -35,7 +35,7 @@ class _QrConfirmState extends State<DmTicketScannerPage> {
               ],
              ),
            ),
-        ),
+         ),
       ),
     );
   }

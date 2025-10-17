@@ -127,7 +127,7 @@ class _UpdateCardState extends State<UpdateCard> {
 
             /// Body
             Padding(
-              padding: const EdgeInsets.only(left: 52, top: 16, right: 15),
+              padding: const EdgeInsets.only(left: 0, top: 16, right: 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

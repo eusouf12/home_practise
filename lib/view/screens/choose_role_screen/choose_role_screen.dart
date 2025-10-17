@@ -5,6 +5,7 @@ import '../../../core/app_routes/app_routes.dart';
 import '../../../utils/app_colors/app_colors.dart';
 import '../../../utils/app_images/app_images.dart';
 import '../../../utils/app_strings/app_strings.dart';
+import '../../../utils/local_storage/local_storage.dart';
 import '../../components/custom_button/custom_button.dart';
 import '../../components/custom_image/custom_image.dart';
 import '../../components/custom_text/custom_text.dart';
@@ -13,13 +14,18 @@ class ChooseRoleScreen extends StatefulWidget {
   const ChooseRoleScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _ChooseRoleScreenState createState() => _ChooseRoleScreenState();
 }
 
 class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
-  int selectedIndex = -1; // To track which container is selected
+  int selectedIndex = -1;
+  final StorageService storageService = StorageService();
 
+  @override
+  void initState() {
+    super.initState();
+    storageService.initStorage();
+  }
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -34,7 +40,7 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
             fit: BoxFit.cover,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 60),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 60),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -62,12 +68,14 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          selectedIndex = 0; // Select the first container
+                          selectedIndex = 0; 
                         });
+                        StorageService().write("role", "host");
+                        print(" Saved role: host");
                       },
                       child: Container(
                         padding: EdgeInsets.all(10),
-                        width: size.width / 2.3,
+                        width: size.width / 2.4,
                         decoration: BoxDecoration(
                           color: selectedIndex == 0
                               ? AppColors.primary
@@ -110,8 +118,10 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          selectedIndex = 1; // Select the second container
+                          selectedIndex = 1; 
                         });
+                        StorageService().write("role", "thrillseekers");
+                        print("Saved role: thrillseekers");
                       },
                       child: Container(
                         padding: EdgeInsets.all(10),
@@ -129,7 +139,7 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
                                 width: 110.w,
                                 height: 130.h),
                             CustomText(
-                              text: "Thrill seekers",
+                              text: "Thrillseekers",
                               fontSize: 16.w,
                               fontWeight: FontWeight.w600,
                               bottom: 8.h,
@@ -158,11 +168,7 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
                 CustomButton(
                   onTap: () {
                     if (selectedIndex == -1) return;
-                    if (selectedIndex == 0) {
-                      Get.toNamed(AppRoutes.homeScreen);
-                    } else if (selectedIndex == 1) {
-                      Get.toNamed(AppRoutes.dmHomeScreen);
-                    }
+                    Get.toNamed(AppRoutes.signUpScreen);
                   },
                   title: AppStrings.continueText,
                   textColor: selectedIndex != -1? AppColors.white :AppColors.white,

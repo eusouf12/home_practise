@@ -21,6 +21,7 @@ class CustomFormCard extends StatelessWidget {
   final Widget? prefixIcon;
   final int? maxLine;
   final double? fontSize;
+  final bool? enabled;
   final Color? titleColor;
   final void Function(String)? onChanged;
   final TextInputType? keyboardType;
@@ -38,10 +39,10 @@ class CustomFormCard extends StatelessWidget {
     this.validator,
     this.hintText,
     this.suffixIcon,
-    this.maxLine,
+    this.maxLine=1,
     this.fontSize,
     this.titleColor,
-    this.prefixIcon, this.keyboardType, this.onChanged,
+    this.prefixIcon, this.keyboardType, this.onChanged, this.enabled,
   });
 
   @override
@@ -59,16 +60,14 @@ class CustomFormCard extends StatelessWidget {
         ),
         CustomTextField(
           isDens: true,
+          enabled: enabled,
           onChanged: onChanged,
           prefixIcon: prefixIcon,
           validator: validator,
           readOnly: readOnly,
           hintText: hintText,
           cursorColor: AppColors.black,
-          hintStyle: GoogleFonts.roboto(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              color: AppColors.black_02),
+          hintStyle: GoogleFonts.roboto(fontWeight: FontWeight.w400, fontSize: 14, color: AppColors.black_02),
           suffixIcon: suffixIcon,
           isPassword: isPassword,
           textEditingController: controller,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../utils/app_colors/app_colors.dart';
@@ -6,7 +5,7 @@ import '../../../../../../utils/app_const/app_const.dart';
 import '../../../../../components/custom_netwrok_image/custom_network_image.dart';
 import '../../../../../components/custom_text/custom_text.dart';
 
-class CustomBarCard extends StatefulWidget {
+class CustomBarCard extends StatelessWidget {
   final String? img;
   final String? imgName;
   final String? title;
@@ -29,22 +28,9 @@ class CustomBarCard extends StatefulWidget {
   });
 
   @override
-  State<CustomBarCard> createState() => _CustomBarCardState();
-}
-
-class _CustomBarCardState extends State<CustomBarCard> {
-  late bool isFavorite;
-
-  @override
-  void initState() {
-    super.initState();
-    isFavorite = widget.isFavorite;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Card(
-      color: widget.distance <= 1 ? AppColors.primary : AppColors.primary5,
+      color: distance <= 1 ? AppColors.primary : AppColors.primary5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
@@ -55,12 +41,12 @@ class _CustomBarCardState extends State<CustomBarCard> {
               clipBehavior: Clip.none,
               children: [
                 CustomNetworkImage(
-                  imageUrl: widget.img ?? AppConstants.ntrition,
-                  height: 130.h,
+                  imageUrl: img ?? AppConstants.ntrition,
+                  height: 129.h,
                   width: double.infinity,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                // category
+                // category name
                 Positioned(
                   top: 0,
                   left: 1,
@@ -71,25 +57,18 @@ class _CustomBarCardState extends State<CustomBarCard> {
                       color: AppColors.white,
                     ),
                     child: CustomText(
-                      text: widget.imgName ?? "Bar",
+                      text: imgName ?? "Bar",
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),
-                // favorite icon
+                // favorite icon (controller will handle logic)
                 Positioned(
                   right: 3,
                   top: 3,
                   child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isFavorite = !isFavorite;
-                      });
-                      if (widget.onFavoriteTap != null) {
-                        widget.onFavoriteTap!();
-                      }
-                    },
+                    onTap: onFavoriteTap,
                     child: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
@@ -111,14 +90,14 @@ class _CustomBarCardState extends State<CustomBarCard> {
                   right: 3,
                   bottom: 3,
                   child: GestureDetector(
-                    onTap: widget.onShareTap,
+                    onTap: onShareTap,
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: AppColors.white,
                       ),
-                      child: Icon(Icons.share, size: 16, color: Colors.black),
+                      child: const Icon(Icons.share, size: 16, color: Colors.black),
                     ),
                   ),
                 ),
@@ -126,7 +105,7 @@ class _CustomBarCardState extends State<CustomBarCard> {
             ),
             // title
             CustomText(
-              text: widget.title ?? '',
+              text: title ?? '',
               fontSize: 13,
               fontWeight: FontWeight.w700,
               color: AppColors.white,
@@ -135,17 +114,16 @@ class _CustomBarCardState extends State<CustomBarCard> {
             ),
             // subtitle (distance)
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText(
-                  text: widget.distance.toString(),
+                  text: distance.toStringAsFixed(1),
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  color: Color(0xFFD2D2D2),
+                  color: const Color(0xFFD2D2D2),
                   right: 4,
                 ),
-                CustomText(
+                const CustomText(
                   text: "km from you",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
@@ -155,7 +133,7 @@ class _CustomBarCardState extends State<CustomBarCard> {
             ),
             // View Details
             GestureDetector(
-              onTap: widget.onViewDetails,
+              onTap: onViewDetails,
               behavior: HitTestBehavior.opaque,
               child: Padding(
                 padding: const EdgeInsets.only(top: 13),

@@ -34,7 +34,6 @@ class _SocialScreenState extends State<DmSocialScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          /// Background
           CustomImage(
             imageSrc: AppImages.backG,
             width: size.width,
@@ -43,12 +42,10 @@ class _SocialScreenState extends State<DmSocialScreen> {
             fit: BoxFit.cover,
           ),
 
-          /// Main Body
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                /// AppBar (fixed, scroll হবে না)
                 const CustomRoyelAppbar(
                   leftIcon: false,
                   titleName: "Social Feed",
@@ -64,24 +61,18 @@ class _SocialScreenState extends State<DmSocialScreen> {
                   selectedColor: AppColors.primary,
                 ),
 
-                /// Scrollable Content
                 if (dmSocialController.currentIndex.value == 0)
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          /// Tabbar
-
                           SizedBox(height: 20.h),
-
-                          /// Story Section
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                /// Create Story
                                 Column(
                                   children: [
                                     GestureDetector(
@@ -119,8 +110,6 @@ class _SocialScreenState extends State<DmSocialScreen> {
                                     )
                                   ],
                                 ),
-
-                                /// Other Stories
                                 Row(
                                   children: List.generate(
                                     5,
@@ -134,8 +123,6 @@ class _SocialScreenState extends State<DmSocialScreen> {
                             ),
                           ),
                           SizedBox(height: 30.h),
-
-                          /// Create Post Section
                          /* Card(
                             color: Colors.transparent,
                             elevation: 0,
@@ -183,7 +170,6 @@ class _SocialScreenState extends State<DmSocialScreen> {
                             color: AppColors.primary,
                           ),*/
 
-                          /// Posts
                           ListView.builder(
                             padding: EdgeInsets.zero,
                             physics: const NeverScrollableScrollPhysics(),
@@ -191,7 +177,7 @@ class _SocialScreenState extends State<DmSocialScreen> {
                             itemCount: 4,
                             itemBuilder: (context, index) {
                               return CustomPost(
-                                onTap: (){
+                                onTap2: (){
                                   Get.toNamed(AppRoutes.personProfileScreen);
                                 },
                               );
@@ -267,16 +253,9 @@ class _SocialScreenState extends State<DmSocialScreen> {
               ],
             ),
           ),
-
-          /// Bottom Navbar
-          const Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: DmNavBar(currentIndex: 3),
-          ),
         ],
       ),
+      bottomNavigationBar: DmNavBar(currentIndex: 3,),
     );
   }
 }

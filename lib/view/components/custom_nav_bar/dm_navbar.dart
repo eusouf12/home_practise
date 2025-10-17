@@ -40,60 +40,52 @@ class _UserNavBarState extends State<DmNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30.r),
-          topRight: Radius.circular(30.r),
+    return SafeArea(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        decoration: BoxDecoration(
+          color: AppColors.primary,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.r),
+            topRight: Radius.circular(30.r),
+          ),
         ),
-        // border: Border.all(color: AppColors.grey_03, width: .2),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Colors.grey,
-        //     spreadRadius: 1,
-        //     blurRadius: 0,
-        //     offset: const Offset(3, 0),
-        //   ),
-        // ],
-      ),
-      height: 85.h,
-      width: MediaQuery.of(context).size.width,
-      alignment: Alignment.centerLeft,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(
-          icons.length,
-              (index) => InkWell(
-            onTap: () => onTap(index),
-            borderRadius: BorderRadius.circular(20.r),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(height: 13.h),
-                Container(
-                  height: 47.62.h,
-                  width: 47.62.w,
-                  decoration: BoxDecoration(
-                    color: index == bottomNavIndex
-                        ? Colors.white
-                        : Colors.transparent,
-                    shape: BoxShape.circle,
+        height: 80.h,
+        width: MediaQuery.of(context).size.width,
+        alignment: Alignment.centerLeft,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: List.generate(
+            icons.length,
+                (index) => InkWell(
+              onTap: () => onTap(index),
+              borderRadius: BorderRadius.circular(20.r),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: 13.h),
+                  Container(
+                    height: 47.62.h,
+                    width: 47.62.w,
+                    decoration: BoxDecoration(
+                      color: index == bottomNavIndex
+                          ? Colors.white
+                          : Colors.transparent,
+                      shape: BoxShape.circle,
+                    ),
+                    alignment: Alignment.center,
+                    child: SvgPicture.asset(
+                      icons[index],
+                      height: 25.h,
+                      width: 25.w,
+                      color: index == bottomNavIndex
+                          ? Colors.black
+                          : Color(0xFFD2D2D2),
+                    ),
                   ),
-                  alignment: Alignment.center,
-                  child: SvgPicture.asset(
-                    icons[index],
-                    height: 25.h,
-                    width: 25.w,
-                    // ignore: deprecated_member_use
-                    color: index == bottomNavIndex
-                        ? Colors.black
-                        : Color(0xFFD2D2D2),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

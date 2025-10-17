@@ -9,13 +9,13 @@ class CustomInviteCard extends StatelessWidget {
   final String? title;
   final FontWeight? fontWeight;
   final double? fontSize;
-  // ignore: non_constant_identifier_names
   final ImageProvider? Img;
   final Color borderColor;
   final Color? checkedColor;
   final double size;
   final bool isChecked;
   final ValueChanged<bool>? onChanged;
+  final ValueChanged<bool>? onChangedFollowing;
   final bool moreIcon;
 
   const CustomInviteCard({
@@ -24,12 +24,12 @@ class CustomInviteCard extends StatelessWidget {
     this.checkedColor,
     this.size = 22,
     this.title,
-    // ignore: non_constant_identifier_names
     this.Img,
     this.fontSize,
     this.fontWeight,
     required this.isChecked,
     this.onChanged,
+    this.onChangedFollowing,
      this.moreIcon =false,
   });
 
@@ -45,7 +45,7 @@ class CustomInviteCard extends StatelessWidget {
           fontWeight: fontWeight ?? FontWeight.w500,
         ),
         Spacer(),
-       moreIcon == false ?  IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz)):
+       moreIcon == false ?  IconButton(onPressed: (){onChangedFollowing?.call(true); }, icon: Icon(Icons.more_horiz)):
         IconButton(
           icon: isChecked
               ? Icon(

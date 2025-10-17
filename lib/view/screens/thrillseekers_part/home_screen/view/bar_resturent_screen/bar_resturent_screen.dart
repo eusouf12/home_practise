@@ -131,8 +131,8 @@ class _BarResturentScreenState extends State<BarResturentScreen> {
                 CustomImage(
                   imageSrc: AppImages.map2,
                   width: double.infinity,
-                  height: MediaQuery.sizeOf(context).height * 0.3, // Adjusted to be responsive
-                  boxFit: BoxFit.cover, // Ensures the image fills the container
+                  height: MediaQuery.sizeOf(context).height * 0.29,
+                  boxFit: BoxFit.cover,
                 ),
               ],
             ),
@@ -140,17 +140,20 @@ class _BarResturentScreenState extends State<BarResturentScreen> {
         ),
         bottomNavigationBar: Container(
           padding: const EdgeInsets.only(left: 0, top: 17, bottom: 19),
-          height: 290.h,
+          height: 305.h,
           decoration: BoxDecoration(
             color: AppColors.primary4,
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 24, right: 24, bottom: 9),
+                    left: 24, right: 24, bottom: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -163,7 +166,7 @@ class _BarResturentScreenState extends State<BarResturentScreen> {
                     GestureDetector(
                       onTap: () {
                         selectedTab == 0
-                            ? Get.toNamed(AppRoutes.bar)
+                            ? Get.toNamed(AppRoutes.nonEvent)
                             : Get.toNamed(AppRoutes.restaurants);
                       },
                       child: CustomText(
@@ -219,12 +222,9 @@ class _BarResturentScreenState extends State<BarResturentScreen> {
                             title: "Pie in the Sky",
                             imgName: "Restaurant",
                             img: AppConstants.ntrition,
-                            onShareTap: () => Get.toNamed(
-                                AppRoutes.favouriteScreen),
-                            onViewDetails: () => Get.toNamed(
-                                AppRoutes.barDetailsPage),
-                            onFavoriteTap: () => Get.toNamed(
-                                AppRoutes.favouriteScreen),
+                            onShareTap: () => Get.toNamed(AppRoutes.favouriteScreen),
+                            onViewDetails: () => Get.toNamed(AppRoutes.barDetailsPage),
+                            onFavoriteTap: () => Get.toNamed(AppRoutes.favouriteScreen),
                           ),
                         ),
                       );

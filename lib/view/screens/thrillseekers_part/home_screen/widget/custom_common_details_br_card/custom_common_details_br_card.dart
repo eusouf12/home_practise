@@ -1,17 +1,22 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import '../../../../../../core/app_routes/app_routes.dart';
 import '../../../../../../utils/app_colors/app_colors.dart';
-import '../../../../../../utils/app_const/app_const.dart';
+import '../../../../../../utils/app_strings/app_strings.dart';
 import '../../../../../components/custom_netwrok_image/custom_network_image.dart';
 import '../../../../../components/custom_text/custom_text.dart';
-import '../custom_text_tile_card/custom_text_tile_card.dart';
-import '../overlapping_card_count/overlapping_card_count.dart';
+
 
 class CustomCommonDetailsBrCard extends StatelessWidget {
-  const CustomCommonDetailsBrCard({super.key});
+  final String? title;
+  final String? address;
+  final String? image;
+  final String? type;
+  final double? lat;
+  final double? lon;
+  final VoidCallback onSharePressed;
+  final VoidCallback onGalleryPressed;
+
+   const CustomCommonDetailsBrCard({super.key, this.title, this.address, this.image, this.type, this.lat, this.lon,required this.onSharePressed, required this.onGalleryPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class CustomCommonDetailsBrCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: CustomNetworkImage(
-                          imageUrl: AppConstants.ntrition, height: 310, width: double.infinity,
+                          imageUrl: image!, height: 310, width: double.infinity,
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
@@ -48,7 +53,7 @@ class CustomCommonDetailsBrCard extends StatelessWidget {
                         ),
                         alignment: Alignment.center,
                         child: CustomText(
-                          text: 'Bar',
+                          text: type!,
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
                         ),
@@ -57,16 +62,19 @@ class CustomCommonDetailsBrCard extends StatelessWidget {
                     Positioned(
                       right: 20,
                       bottom: 20,
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: AppColors.greyLight,
-                        ),
-                        child: const Icon(
-                          Icons.share,
-                          size: 16,
-                          color: AppColors.black,
+                      child: GestureDetector(
+                        onTap: onSharePressed,
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: AppColors.greyLight,
+                          ),
+                          child: const Icon(
+                            Icons.share,
+                            size: 16,
+                            color: AppColors.black,
+                          ),
                         ),
                       ),
                     ),
@@ -79,14 +87,16 @@ class CustomCommonDetailsBrCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children:  [
                       CustomText(
-                        text: 'Live Jazz Night',
+                        text: title!,
                         color: AppColors.black,
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
                       ),
 
                       CustomText(
-                        text: 'New York, NY',
+                        text: address!,
+                        maxLines: 2,
+                        textAlign: TextAlign.start,
                         color: AppColors.black,
                         fontSize: 16,
                         bottom:11 ,
@@ -99,18 +109,19 @@ class CustomCommonDetailsBrCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 29),
+          const SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 19),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: (){
-                    Get.toNamed(AppRoutes.galleryScreen);
-                  },
+                  onTap: onGalleryPressed,
+                    // Get.toNamed(AppRoutes.galleryScreen, arguments:event.id);
+                    // debugPrint(event.id);
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 50,vertical: 18),
+                    width: MediaQuery.of(context).size.width*0.78,
+                    padding: EdgeInsets.symmetric(vertical: 18),
                     decoration: BoxDecoration(
                       color: AppColors.primary,
                       borderRadius: BorderRadius.circular(53.r),
@@ -123,91 +134,12 @@ class CustomCommonDetailsBrCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
-                GestureDetector(
-                  onTap: (){
-                    Get.toNamed(AppRoutes.updateScreen);
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20,vertical: 18),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary6,
-                      borderRadius: BorderRadius.circular(53.r),
-                    ),
-                    child: CustomText(
-                      text: "Update & Reports",
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
-          // profile +and follow
-          const SizedBox(height: 32),
-          Container(
-            padding: EdgeInsets.all(16.r),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(20.r),
-            ),
-            child: CustomTextTileCard(),
-          ),
-          //About Bar
-          const SizedBox(height: 36),
-          Container(
-            padding: EdgeInsets.all(16.r),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(20.r),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
 
-                CustomText(
-                  text: 'About Bar',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-
-                CustomText(
-                  text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis ante elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis ante elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis ante elit.",
-                  fontSize: 14,
-                  color: AppColors.black,
-                  textAlign: TextAlign.left,
-                  maxLines: 10,
-                  bottom: 25,
-                  top: 8,
-                ),
-
-                CustomText(
-                  text: 'Join the event',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  bottom: 8,
-                ),
-
-                OverlappingCardCount(
-                  imageUrls: [
-                    AppConstants.profileImage,
-                    AppConstants.profileImage,
-                    AppConstants.profileImage,
-                    AppConstants.profileImage,
-                  ],
-                  totalCount: 14,
-                ),
-
-
-
-
-              ],
-            ),
-          ),
-          // Location and map
-          const SizedBox(height: 45),
+          // Location a map
+          const SizedBox(height: 15),
           Container(
             padding: EdgeInsets.all(16.r),
             decoration: BoxDecoration(
@@ -228,7 +160,7 @@ class CustomCommonDetailsBrCard extends StatelessWidget {
                     SizedBox(width: 6.w),
 
                     CustomText(
-                      text: 'Location',
+                      text: AppStrings.location,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -236,7 +168,7 @@ class CustomCommonDetailsBrCard extends StatelessWidget {
                 ),
 
                 CustomText(
-                  text: '55 Hudson Yards, 10th FloorNew York, NY 10001, United States',
+                  text: address!,
                   fontSize: 16,
                   color: AppColors.black,
                   textAlign: TextAlign.left,
@@ -252,7 +184,7 @@ class CustomCommonDetailsBrCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(53.r),
                   ),
                   child: CustomText(
-                    text: "Map",
+                    text: AppStrings.map,
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: AppColors.white,

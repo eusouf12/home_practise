@@ -5,10 +5,13 @@ import 'package:get/get.dart';
 import 'core/app_routes/app_routes.dart';
 import 'core/dependency/dependency_injection.dart';
 import 'utils/app_colors/app_colors.dart';
-import 'package:device_preview/device_preview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // Set visible background color
     statusBarIconBrightness: Brightness.dark, // Android: dark icons
@@ -16,11 +19,7 @@ void main() async {
   ));
   DependencyInjection di = DependencyInjection();
   di.dependencies();
-  runApp(DevicePreview(
-      enabled: !const bool.fromEnvironment('dart.vm.product',),
-      builder: (context) => const MyApp(),
-  ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,10 +32,8 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       designSize: const Size(393, 852),
       child: GetMaterialApp(
-         locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
         theme: ThemeData(
-          scaffoldBackgroundColor: AppColors.white,
+          scaffoldBackgroundColor: Colors.transparent,
           appBarTheme: const AppBarTheme(
             toolbarHeight: 65,
             elevation: 0,

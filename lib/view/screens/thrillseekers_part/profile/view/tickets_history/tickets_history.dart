@@ -14,23 +14,27 @@ class _TicketsHistoryState extends State<TicketsHistory> {
   @override
   Widget build(BuildContext context) {
     return CustomGradient(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: CustomRoyelAppbar(leftIcon: true, titleName: 'Tickets History'),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children:List.generate(2,(index){
-              return Column(
-                children: [
-                  CustomTicketHistory(
-                    price:"\$26",
-                    totalPrice:"\$26" ,
-                  ),
-                  SizedBox(height: 16,),
-                ],
-              );
-            }),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: CustomRoyelAppbar(leftIcon: true, titleName: 'Tickets History'),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children:List.generate(10,(index){
+                  return Column(
+                    children: [
+                      CustomTicketHistory(
+                        price:"\$26",
+                        totalPrice:"\$26" ,
+                      ),
+                      SizedBox(height: 16,),
+                    ],
+                  );
+                }),
+              ),
+            ),
           ),
         ),
       ),

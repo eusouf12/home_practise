@@ -14,20 +14,20 @@ class CustomPinCode extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30),
+      padding: EdgeInsets.only(left: 10, right: 10),
       child: PinCodeTextField(
         keyboardType: TextInputType.number,
         appContext: context,
-        length: 4,
+        length: 6,
         enableActiveFill: true,
         animationType: AnimationType.fade,
         animationDuration: Duration(milliseconds: 300),
         controller: controller,
         pinTheme: PinTheme(
           shape: PinCodeFieldShape.box,
-          borderRadius: BorderRadius.circular(16),
-          fieldHeight: 65,
-          fieldWidth: size.width * 0.15,
+          borderRadius: BorderRadius.circular(8),
+          fieldHeight: 60,
+          fieldWidth: size.width * 0.12,
           inactiveColor: AppColors.white,
           activeColor: AppColors.white_50, // active color
           activeFillColor: AppColors.white_50,

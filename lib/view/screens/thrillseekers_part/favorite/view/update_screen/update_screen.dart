@@ -57,7 +57,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
         ),
 
         body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 23),
+          padding: EdgeInsets.only(left: 10, right: 10, top: 23),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(

@@ -4,174 +4,97 @@ import 'package:event_platform/view/components/custom_royel_appbar/custom_royel_
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../../../../core/app_routes/app_routes.dart';
+import '../../../../../../helper/shared_prefe/shared_prefe.dart';
+import '../../../../../../service/api_url.dart';
 import '../../../../../../utils/app_colors/app_colors.dart';
-import '../../../../../../utils/app_icons/app_icons.dart';
 import '../../../../../components/custom_button/custom_button.dart';
 import '../../../../../components/custom_gradient/custom_gradient.dart';
+import '../../../../../components/custom_loader/custom_loader.dart';
 import '../../../../../components/custom_text/custom_text.dart';
-import '../../widget/custom_live_details/custom_live_comment.dart';
+import '../../../profile/controller/dm_profile_controller.dart';
+import '../../controller/home_controller/dm_home_controller.dart';
+import '../../widget/custom_ticket_count/custom_ticket_count.dart';
+import '../../widget/custom_upcoming_time_count/custom_countdown_timer.dart';
+import '../../widget/middle_details/middle_details.dart';
 
-class DmUpcomingDetails extends StatefulWidget {
-  const DmUpcomingDetails({
-    super.key,
-  });
+class DmUpcomingDetails extends StatelessWidget {
+  DmUpcomingDetails({super.key});
+  final DmHomeController dmHomeController = Get.put(DmHomeController());
+  final DmProfileController dmProfileController = Get.put(DmProfileController());
+  final CounterController counterController = Get.put(CounterController());
 
-  @override
-  State<DmUpcomingDetails> createState() => _DmUpcomingDetailsState();
-}
-
-class _DmUpcomingDetailsState extends State<DmUpcomingDetails> {
-  int ticketCount = 1;
-  double totalPrice = 20.0;
-
-  void handleCountChange(int count, double price) {
-    setState(() {
-      ticketCount = count;
-      totalPrice = price;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+      dmHomeController.getLiveEventDetails();
+    });
     return CustomGradient(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: CustomRoyelAppbar(
-          leftIcon: true,
-          titleName: "Details Page",
-        ),
+        appBar: const CustomRoyelAppbar(leftIcon: true, titleName: "Details Page",),
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Obx((){
+            if (dmHomeController.rxLiveEventRequestStatus.value == Status.loading) {
+              return const Center(child: CustomLoader());
+            }
+            if (dmHomeController.rxLiveEventRequestStatus.value == Status.error) {
+              return  Center(child: Text("Failed to load Events Details"));
+            }
+            if (dmHomeController.specificEvent.value ==  null) {
+              return  Center(child: Text("No live events details found"));
+            }
+            final event = dmHomeController.specificEvent.value!;
+            return   Column(
               children: [
-                SizedBox(height: 20),
+                 SizedBox(height: 20),
                 Card(
                   elevation: 0,
                   color: Colors.white,
                   child: Column(
                     children: [
                       CustomNetworkImage(
-                          imageUrl: AppConstants.ntrition,
-                          height: 150.h,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
-                          width: MediaQuery.sizeOf(context).width),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14.5,
-                          vertical: 13,
+                        imageUrl:'${ApiUrl.baseUrl}/${event.photo }',
+                        height: 160.h,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
                         ),
+                        width: MediaQuery.sizeOf(context).width,
+                      ),
+                      Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 14.5, vertical: 20,),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
-                                CustomText(
-                                  text: 'Live Jazz Night',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                  bottom: 4,
-                                ),
-                                Spacer(),
-                                SizedBox(
-                                  width: 113,
-                                  height: 30,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      border:
-                                          Border.all(color: AppColors.primary3),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        // Hour container
-                                        Flexible(
-                                          child: Container(
-                                            height: double.infinity,
-                                            color: AppColors.primary3,
-                                            alignment: Alignment.center,
-                                            child: const Text(
-                                              '01',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        // Colon separator
-                                        Container(
-                                          width: 17,
-                                          alignment: Alignment.center,
-                                          child: const Text(
-                                            ':',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        // Minute container
-                                        Flexible(
-                                          child: Container(
-                                            height: double.infinity,
-                                            color: AppColors.primary3,
-                                            alignment: Alignment.center,
-                                            child: const Text(
-                                              '23',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        // Colon separator
-                                        Container(
-                                          width: 17,
-                                          alignment: Alignment.center,
-                                          child: const Text(
-                                            ':',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        // Second container
-                                        Flexible(
-                                          child: Container(
-                                            height: double.infinity,
-                                            color: AppColors.primary3,
-                                            alignment: Alignment.center,
-                                            child: const Text(
-                                              '45',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                Expanded(
+                                  child: CustomText(
+                                     text: event.eventTitle??" ",
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w700,
+                                    bottom: 4,
+                                     maxLines: 2,
+                                    textAlign: TextAlign.start,
                                   ),
-                                )
+                                ),
+
+                                EventCountdown(event: event,),
                               ],
                             ),
-                            //title detail
+                            //event description
                             CustomText(
-                              text:
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididuntut laboore at dolore magna aliqua',
-                              maxLines: 3,
+                              text:event.description??" ",
+                              maxLines: 10,
                               textAlign: TextAlign.start,
                               bottom: 8,
-                              top: 2,
+                              top: 3,
                             ),
-                            SizedBox(height: 11.03),
+                             SizedBox(height: 8),
                             // joined+Invited+18+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -182,18 +105,21 @@ class _DmUpcomingDetailsState extends State<DmUpcomingDetails> {
                                   },
                                   child: Container(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: 16.r, vertical: 12),
+                                      horizontal: 16.r,
+                                      vertical: 12,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: AppColors.red_02,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
                                       children: [
-                                     Icon(Icons.group_add, color: AppColors.white,),
-                                        SizedBox(width: 5),
-                                        CustomText(
+                                        const Icon(
+                                          Icons.group_add,
+                                          color: AppColors.white,
+                                        ),
+                                        const SizedBox(width: 5),
+                                        const CustomText(
                                           text: 'Invite',
                                           color: AppColors.white,
                                           fontSize: 16,
@@ -203,109 +129,73 @@ class _DmUpcomingDetailsState extends State<DmUpcomingDetails> {
                                     ),
                                   ),
                                 ),
-
-                                // SizedBox(width: 25),
                                 GestureDetector(
                                   onTap: () {
                                     Get.toNamed(AppRoutes.venueFacility);
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 16),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 16,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: AppColors.greyLight,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     alignment: Alignment.center,
-                                    child: CustomText(
+                                    child: const CustomText(
                                       text: 'Venue Facility',
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                                // SizedBox(width: 25),
-                                //18
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 16),
+                                Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 16,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: AppColors.greyLight,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    child: Center(
+                                    child:  Center(
                                       child: CustomText(
-                                        text: '18+',
+                                        text: event.audienceSettings?.age ??"",
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                   ),
-                                ),
                               ],
                             ),
-                            SizedBox(height: 21),
-                            CustomLiveComment(
-                              preIcon: AssetImage(AppIcons.musice,),
-                              isPreIcon: true,
-                              title: "CityGroove Fest",
-                              subtitle: "Experience the best urban music",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15.3,
-                              fontSize3: 11.9,
-                              color3: AppColors.primary,
+                             SizedBox(height: 21),
+                            // middle
+                            MiddleDetails(
+                              title: event.eventTitle??" ",
+                              location: "Downtown LA",
+                              date: "${event.date != null ? DateFormat('dd-MM-yyyy').format(event.date!) : ''} - ${event.startingTime}",
                             ),
-                            SizedBox(height: 16),
-                            //date
-                            CustomLiveComment(
-                              preIcon: AssetImage(AppIcons.calenderIcon),
-                              isPreIcon: true,
-                              title: "May 28, 2025 – 6:00 PM",
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: AppColors.primary,
-                            ),
-                            SizedBox(height: 16),
-                            //location
-                            CustomLiveComment(
-                              preIcon: AssetImage(AppIcons.locationIcon),
-                              isPreIcon: true,
-                              title: "Downtown LA",
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: AppColors.primary,
-                            ),
-                            SizedBox(height: 11),
-                            Divider(thickness: 1, color: AppColors.primary),
-                            SizedBox(height: 20),
 
-                            //Quantity
-                            CustomLiveComment(
-                              isPreIcon: true,
-                              isCount: true,
-                              isTrue: true,
-                              title: "Quantity",
-                              ticketPrice: 20.0,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: AppColors.primary,
-                              onCountChanged: handleCountChange,
-                            ),
-                            // Price per Ticket
-                            CustomLiveComment(
-                              isPreIcon: true,
-                              isTrue: true,
-                              title: "Price per Ticket",
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              fontWeight2: FontWeight.w500,
-                              fontSize2: 14,
-                              color: AppColors.primary,
-                              color2: AppColors.black,
-                              externalCount: ticketCount,
-                              externalTotalPrice: totalPrice,
+                            const SizedBox(height: 16),
+
+                            const Divider(thickness: 1, color: AppColors.primary),
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                 CustomText(
+                                  text: "Quantity",
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w400,
+                                   color: AppColors.primary,
+                                ),
+                                 Spacer(),
+                                Obx(() => CustomTimeCount(
+                                  value: counterController.counter.value,
+                                  onIncrement: counterController.increment,
+                                  onDecrement: counterController.decrement,
+                                )),
+                              ],
                             ),
                           ],
                         ),
@@ -313,11 +203,11 @@ class _DmUpcomingDetailsState extends State<DmUpcomingDetails> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 21,
-                ),
+                const SizedBox(height: 21),
                 CustomButton(
                   onTap: () {
+                    int total = counterController.counter.value;
+                    SharePrefsHelper.setInt('totalTicket', total);
                     Get.toNamed(AppRoutes.confirmBooking);
                   },
                   height: 70,
@@ -326,10 +216,10 @@ class _DmUpcomingDetailsState extends State<DmUpcomingDetails> {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
-                SizedBox(height: 77),
+                const SizedBox(height: 77),
               ],
-            ),
-          ),
+            );
+          }),
         ),
       ),
     );

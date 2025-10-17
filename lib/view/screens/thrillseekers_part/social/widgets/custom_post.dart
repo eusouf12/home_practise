@@ -9,7 +9,8 @@ import '../../../../components/custom_netwrok_image/custom_network_image.dart';
 import '../../../../components/custom_text/custom_text.dart';
 class CustomPost extends StatelessWidget {
   final void Function()? onTap;
-  const CustomPost({super.key, this.onTap});
+  final void Function()? onTap2;
+  const CustomPost({super.key, this.onTap, this.onTap2});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +30,14 @@ class CustomPost extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomNetworkImage(
-                    imageUrl: AppConstants.profileImage,
-                    height: 60.h,
-                    width: 60.w,
-                    boxShape: BoxShape.circle,
+                  GestureDetector(
+                    onTap: onTap2,
+                    child: CustomNetworkImage(
+                      imageUrl: AppConstants.profileImage,
+                      height: 60.h,
+                      width: 60.w,
+                      boxShape: BoxShape.circle,
+                    ),
                   ),
                   SizedBox(
                     width: 10.w,

@@ -1,48 +1,69 @@
+import 'package:event_platform/view/components/custom_gradient/custom_gradient.dart';
 import 'package:event_platform/view/components/custom_royel_appbar/custom_royel_appbar.dart';
-import 'package:event_platform/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../utils/app_images/app_images.dart';
-import '../../../../components/custom_image/custom_image.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:get/get.dart';
+import '../../../../../utils/app_colors/app_colors.dart';
+import '../../../../../utils/app_const/app_const.dart';
+import '../../../../components/custom_loader/custom_loader.dart';
+import '../../../../components/general_error.dart';
+import '../controller/profile_controller.dart';
 
 class TermsConditionScreen extends StatelessWidget {
-  const TermsConditionScreen({super.key});
+  final ProfileController profileController = Get.find<ProfileController>();
+  TermsConditionScreen({super.key}){
+    profileController.getTermsConditions();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          CustomImage(
-            imageSrc: AppImages.backG,
-            width: size.width,
-            height: size.height,
-            boxFit: BoxFit.cover,
-            fit: BoxFit.cover,
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+        profileController.getTermsConditions();
+
+    });
+    return CustomGradient(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: CustomRoyelAppbar(leftIcon: true, titleName: "Terms & Conditions",),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Obx(
+                () {
+              switch (profileController.rxTermsStatus.value) {
+                case Status.loading:
+                  return Center(
+                    child: CustomLoader(),
+                  );
+                case Status.internetError:
+                  return Center(
+                    child: CustomLoader(),
+                  );
+                case Status.error:
+                  return GeneralErrorScreen(
+                      onTap: () => profileController.getTermsConditions());
+                case Status.completed:
+                  return Column(
+                    children: [
+                      HtmlWidget(
+                        profileController.termsModel.value.termsCondition != null
+                            ? profileController.termsModel.value.termsCondition!
+                            : 'Terms & Conditions Is Empty Data',
+                        textStyle: TextStyle(
+                          color: AppColors.black,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  );
+              }
+            },
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomRoyelAppbar(leftIcon: true,titleName: "Terms & Conditions",),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
-                child: CustomText(
-                  text:
-                  "We respect your privacy. When you use our app, we collect basic info like your name, email, and event preferences to help you manage, join, or host events easily.",
-                  fontSize: 16.w,
-                  fontWeight: FontWeight.w400,
-                  maxLines: 10,
-                  //overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.justify,
-                ),
-              )
-            ],
-          ),
-        ],
+        ),
+        // bottomNavigationBar: HostNavbar(currentIndex: 0,),
       ),
-      // bottomNavigationBar: HostNavbar(currentIndex: 0,),
     );
   }
 }
+ 

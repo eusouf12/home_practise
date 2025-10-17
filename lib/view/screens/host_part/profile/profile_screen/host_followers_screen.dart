@@ -1,7 +1,9 @@
 import 'package:event_platform/view/components/custom_royel_appbar/custom_royel_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../../../../utils/app_colors/app_colors.dart';
+import '../../../../../core/app_routes/app_routes.dart';
 import '../../../../components/custom_button/custom_button.dart';
 import '../../../../components/custom_gradient/custom_gradient.dart';
 import '../../../../components/custom_text/custom_text.dart';
@@ -63,20 +65,62 @@ class _InvitedScreenState extends State<HostFollowersScreen> {
                       moreIcon: false,
                       checkedColor: AppColors.primary,
                       isChecked: isCheckedList[index],
+
+                      // Checkbox change
                       onChanged: (value) {
                         setState(() {
                           isCheckedList[index] = value;
                         });
                       },
+
+                      // More icon চাপলে অন্য পেজে যাবে
+                      onChangedFollowing: (value) {
+                        // সরাসরি showModalBottomSheet কল করো
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                          ),
+                          builder: (context) {
+                            return SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.15,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+
+                                    Expanded(
+                                      child: ListView(
+                                        children: [
+                                          optionItem("Block Ronald Richards "),
+                                          optionItem("Unfollow Ronald Richards "),
+                                        ],
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 20),
+
+                                    /// Next button
+
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+
                     );
                   },
                 ),
-                CustomButton(
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                  title: "Send invite (8)",
-                )
+                // CustomButton(
+                //   onTap: (){
+                //     Navigator.pop(context);
+                //   },
+                //   title: "Send invite (8)",
+                // )
               ],
             ),
           ),
@@ -84,4 +128,35 @@ class _InvitedScreenState extends State<HostFollowersScreen> {
       ),
     );
   }
+}
+
+
+Widget optionItem(String text) {
+  // icon select করার জন্য condition
+  IconData iconData;
+  if (text.toLowerCase().startsWith("block")) {
+    iconData = Icons.block;
+  } else if (text.toLowerCase().startsWith("unfollow")) {
+    iconData = Icons.person_remove;
+  } else if (text.toLowerCase().startsWith("follow")) {
+    iconData = Icons.person_add;
+  } else {
+    iconData = Icons.help; // default icon
+  }
+
+  return InkWell(
+    onTap: () {
+
+    },
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Row(
+        children: [
+          Icon(iconData, size: 16),
+          SizedBox(width: 10.w),
+          CustomText(text: text),
+        ],
+      ),
+    ),
+  );
 }

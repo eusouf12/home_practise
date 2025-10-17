@@ -33,10 +33,11 @@ class CustomTextField extends StatefulWidget {
     this.maxLength,
     this.prefixIcon,
     this.onTap,
-    this.isDens = false,
+    this.isDens = false, this.enabled = true,
   });
 
   final TextEditingController? textEditingController;
+  final bool? enabled;
   final FocusNode? focusNode;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
@@ -74,6 +75,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: widget.enabled,
       onTap: widget.onTap,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       inputFormatters: widget.inputFormatters,

@@ -37,7 +37,7 @@ class CustomEventTabbar extends StatelessWidget {
         ),*/
       ),
       padding: isPadding!
-          ? const EdgeInsets.symmetric(horizontal: 6)
+          ? const EdgeInsets.only(left: 6,right: 6,bottom: 8)
           : const EdgeInsets.symmetric(horizontal: 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,9 +48,7 @@ class CustomEventTabbar extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: selectedIndex == index
-                    ? selectedColor
-                    : AppColors.white,
+                color: selectedIndex == index ? selectedColor : AppColors.white,
           /*      border: Border(
                   bottom: BorderSide(
                     color: selectedIndex == index
@@ -62,8 +60,7 @@ class CustomEventTabbar extends StatelessWidget {
               ),
               child: CustomText(
                   text: tabs[index],
-                  color: selectedIndex == index
-                      ? AppColors.white
+                  color: selectedIndex == index ? AppColors.white
                       : AppColors.black_80,
                   fontSize: 16,
                   fontWeight: FontWeight.w500),

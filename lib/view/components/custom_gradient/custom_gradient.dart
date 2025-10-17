@@ -25,7 +25,7 @@ class CustomGradient extends StatelessWidget {
            fit: BoxFit.cover, // makes it fill entire screen
          ),
        ),
-       child: child,
+       child: SafeArea(child: child),
      );
   }
 }

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../service/api_url.dart';
 import '../../../../../utils/app_colors/app_colors.dart';
 import '../../../../../utils/app_const/app_const.dart';
 import '../../../../components/custom_netwrok_image/custom_network_image.dart';
 import '../../../../components/custom_text/custom_text.dart';
 class CustomGroupCard extends StatelessWidget {
-  const CustomGroupCard({super.key});
+  const CustomGroupCard({super.key, this.onTap, this.groupName, this.totalMember,  this.img});
+
+  final VoidCallback? onTap;
+  final String? groupName;
+  final int? totalMember;
+  final String? img;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,7 @@ class CustomGroupCard extends StatelessWidget {
             Row(
               children: [
                 CustomNetworkImage(
-                  imageUrl: AppConstants.profileImage,
+                  imageUrl: img != null ? '${ApiUrl.baseUrl}/${img}' : AppConstants.profileImage,
                   height: 50,
                   width: 50,
                   boxShape: BoxShape.rectangle,
@@ -34,7 +40,7 @@ class CustomGroupCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: "Photography Lovers",
+                      text: groupName??"",
                       fontSize: 14.w,
                       fontWeight: FontWeight.w600,
                     ),
@@ -42,7 +48,7 @@ class CustomGroupCard extends StatelessWidget {
                       children: [
                         Icon(Icons.supervised_user_circle),
                         CustomText(
-                          text: "122 members",
+                          text: "${totalMember ?? 0} members",
                           fontSize: 12.w,
                           fontWeight: FontWeight.w400,
                         ),
@@ -54,7 +60,7 @@ class CustomGroupCard extends StatelessWidget {
             ),
             TextButton(
               autofocus: true,
-              onPressed: () {},
+              onPressed: onTap,
               child: CustomText(
                 text: "Join",
                 fontSize: 14.w,

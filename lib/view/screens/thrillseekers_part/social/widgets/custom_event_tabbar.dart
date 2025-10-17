@@ -39,7 +39,7 @@ class CustomEventTabbar extends StatelessWidget {
         ),*/
       ),
       padding: isPadding!
-          ? const EdgeInsets.symmetric(horizontal: 6)
+          ? const EdgeInsets.only(left: 6,right: 6,bottom: 10)
           : const EdgeInsets.symmetric(horizontal: 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

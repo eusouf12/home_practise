@@ -244,6 +244,10 @@ class   AppStrings {
   static const String youGet10Points = "You Get 10 Points";
   static const String claim = "CLAIM";
   static const String rateThisEvent = "Rate This Event";
+  static const String description = "Description";
+  static const String descriptionHint = "Describe Your Event";
+  static const String createPost = "Create Post";
+
 
   ///============================ Host part =========================//
   static const String helloProfileName = "Hello Mehedi";

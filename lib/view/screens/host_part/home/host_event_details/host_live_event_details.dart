@@ -222,7 +222,7 @@ class _DmLiveEventDetailsState extends State<HostLiveEventDetails> {
                           ),
                           InkWell(
                             onTap: () {
-                              // Get.toNamed(AppRoutes.createPostScreen);
+                               Get.toNamed(AppRoutes.createPostScreen);
                             },
                             child: Icon(Icons.image),
                           ),
@@ -230,7 +230,7 @@ class _DmLiveEventDetailsState extends State<HostLiveEventDetails> {
                       ),
                     ),
                     // live comment
-                    Padding(
+                    /*Padding(
                       padding: const EdgeInsets.only(
                           top: 3, left: 14, right: 14, bottom: 19),
                       child: Row(
@@ -278,10 +278,10 @@ class _DmLiveEventDetailsState extends State<HostLiveEventDetails> {
                           ),
                         ],
                       ),
-                    ),
-                    Divider(thickness: 1, color: AppColors.black),
+                    ),*/
+                    // Divider(thickness: 1, color: AppColors.black),
                     //cmt scroll
-                    Container(
+                    /*Container(
                       height: 262,
                       padding: EdgeInsets.symmetric(horizontal: 14),
                       child: SingleChildScrollView(
@@ -302,9 +302,9 @@ class _DmLiveEventDetailsState extends State<HostLiveEventDetails> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 16),*/
                     //Write a comment
-                    Padding(
+                    /*Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: SizedBox(
                         height: 50,
@@ -344,7 +344,7 @@ class _DmLiveEventDetailsState extends State<HostLiveEventDetails> {
                     ),
                     SizedBox(
                       height: 30,
-                    ),
+                    ),*/
                     Column(
                       children: List.generate(2, (index) {
                         return Column(
@@ -354,8 +354,6 @@ class _DmLiveEventDetailsState extends State<HostLiveEventDetails> {
                                   const EdgeInsets.symmetric(horizontal: 14),
                               child: CustomPost(),
                             ),
-                            if (index != 1) // count-1
-                              Divider(color: Colors.grey.shade300, height: 1),
                           ],
                         );
                       }),

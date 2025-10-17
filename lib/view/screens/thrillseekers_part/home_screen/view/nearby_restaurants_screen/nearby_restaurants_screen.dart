@@ -1,5 +1,6 @@
 import 'package:event_platform/view/components/custom_royel_appbar/custom_royel_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../../core/app_routes/app_routes.dart';
 import '../../../../../../utils/app_const/app_const.dart';
@@ -19,6 +20,7 @@ class _NearbyRestaurantsScreenState extends State<NearbyRestaurantsScreen> {
     {"title": "The Codfather", "distance": 0.8, "isFavorite": false},
     {"title": "Best Buffet", "distance": 1.7, "isFavorite": false},
     {"title": "Sushi House", "distance": 0.5, "isFavorite": false},
+    {"title": "Sushi House2", "distance": 0.5, "isFavorite": false},
   ];
 
 
@@ -33,12 +35,12 @@ class _NearbyRestaurantsScreenState extends State<NearbyRestaurantsScreen> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 25),
+            padding:  EdgeInsets.symmetric(horizontal: 20.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: List.generate(restaurants.length, (index) {
                 return Padding(
-                  padding: const EdgeInsets.only(top: 23),
+                  padding:  EdgeInsets.only(top: 10),
                   child: CustomBarCard(
                     title: restaurants[index]["title"],
                     distance: restaurants[index]["distance"],

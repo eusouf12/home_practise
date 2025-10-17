@@ -1,137 +1,157 @@
-import 'package:event_platform/view/components/custom_royel_appbar/custom_royel_appbar.dart';
+import 'package:event_platform/view/components/custom_button/custom_button.dart';
+import 'package:event_platform/view/components/custom_gradient/custom_gradient.dart';
+import 'package:event_platform/view/components/custom_loader/custom_loader.dart';
+import 'package:event_platform/view/screens/authentication_screen/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../core/app_routes/app_routes.dart';
 import '../../../../utils/app_colors/app_colors.dart';
-import '../../../../utils/app_images/app_images.dart';
 import '../../../../utils/app_strings/app_strings.dart';
-import '../../../components/custom_button/custom_button.dart';
 import '../../../components/custom_from_card/custom_from_card.dart';
-import '../../../components/custom_image/custom_image.dart';
 import '../../../components/custom_text/custom_text.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+  SignUpScreen({super.key});
+  final authController = Get.put(AuthController());
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-    return Scaffold(
-      body: Stack(
-        children: [
-          CustomImage(
-            imageSrc: AppImages.backG,
-            width: size.width,
-            height: size.height,
-            boxFit: BoxFit.cover,
-            fit: BoxFit.cover,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CustomRoyelAppbar(leftIcon: true),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CustomText(
-                      text: AppStrings.createYourAccount,
-                      fontSize: 20.w,
-                      fontWeight: FontWeight.w600,
-                      bottom: 40.h,
-                    ),
-                    // SizedBox(height: 50.h),
-                    Column(
+    return CustomGradient(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: AppStrings.createYourAccount,
+                  fontSize: 20.w,
+                  fontWeight: FontWeight.w600,
+                  bottom: 40.h,
+                ),
+                Form(
+                  key: formKey,
+                  child: Obx(() {
+                    return Column(
                       children: [
+                        CustomFormCard(
+                          title: AppStrings.name,
+                          hintText: AppStrings.enterAName,
+                          maxLine: 1,
+                          controller: authController.nameController.value,
+                          validator: (value) =>
+                          value == null || value.isEmpty
+                              ? AppStrings.enterName
+                              : null,
+                        ),
                         CustomFormCard(
                           title: AppStrings.email,
                           hintText: AppStrings.exampleEmail,
-                          controller: TextEditingController(),
+                          maxLine: 1,
+                          controller: authController.emailController.value,
+                          validator: (value) =>
+                          value == null || value.isEmpty
+                              ? AppStrings.enterYourEmail
+                              : null,
+                        ),
+                        CustomFormCard(
+                          title: AppStrings.phoneNumber,
+                          maxLine: 1,
+                          hintText: "+62 654567890",
+                          controller: authController.phoneNumberController.value,
+                          validator: (value) =>
+                          value == null || value.isEmpty
+                              ? AppStrings.phoneNumber
+                              : null,
+                        ),
+                        CustomFormCard(
+                          readOnly: true,
+                          onTap: () => authController.pickDate(context),
+                          title: AppStrings.dateOfBirthday,
+                          maxLine: 1,
+                          hintText: "Select date",
+                          suffixIcon: Icon(Icons.calendar_today,
+                              color: AppColors.primary),
+                          controller:
+                          authController.dateOfBirthController.value,
+                          validator: (value) =>
+                          value == null || value.isEmpty
+                              ? AppStrings.typeYourDate
+                              : null,
                         ),
                         CustomFormCard(
                           title: AppStrings.password,
                           hintText: AppStrings.passwordHint,
                           isPassword: true,
-                          controller: TextEditingController(),
+                          maxLine: 1,
+                          controller: authController.passwordController.value,
+                          validator: (value) =>
+                          value == null || value.isEmpty
+                              ? AppStrings.enterYourPassword
+                              : null,
                         ),
                         CustomFormCard(
                           title: AppStrings.confirmPassword,
                           hintText: AppStrings.passwordHint,
                           isPassword: true,
-                          controller: TextEditingController(),
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                                value: true,
-                                groupValue: (true),
-                                focusColor: AppColors.primary,
-                                activeColor: AppColors.primary,
-                                onChanged: (value) {}),
-                            CustomText(
-                              text: "I understand the",
-                              fontSize: 16.w,
-                              fontWeight: FontWeight.w400,
-                            ),
-                            CustomText(
-                              text: "Terms & ",
-                              fontSize: 16.w,
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            CustomText(
-                              text: "Policy",
-                              fontSize: 16.w,
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 160.h),
-                    Column(
-                      children: [
-                        CustomButton(
-                          onTap: () {
-                             Get.offAllNamed(AppRoutes.loginScreen);
+                          maxLine: 1,
+                          controller:
+                          authController.confirmPasswordController.value,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return AppStrings.confirmPassword;
+                            } else if (value !=
+                                authController.passwordController.value.text) {
+                              return AppStrings.passwordNotMatch;
+                            }
+                            return null;
                           },
-                          title: AppStrings.signUp,
                         ),
-                        SizedBox(height: 10.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomText(
-                              text: AppStrings.alreadyHaveAccount,
-                              fontSize: 16.w,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.black_02,
-                            ),
-                            GestureDetector(
-                              onTap: (){
-                                Get.toNamed(AppRoutes.loginScreen);
-                              },
-                              child: CustomText(
-                                text: AppStrings.login,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ],
-                        )
                       ],
-                    )
+                    );
+                  }),
+                ),
+                SizedBox(height: 30.h),
+                Obx(() {
+                  return authController.signUpLoading.value
+                      ? CustomLoader()
+                      : CustomButton(
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        authController.signUp();
+                      }
+                    },
+                    title: AppStrings.signUp,
+                  );
+                }),
+                SizedBox(height: 10.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText(
+                      text: AppStrings.alreadyHaveAccount,
+                      fontSize: 16.w,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.black_02,
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.toNamed(AppRoutes.loginScreen),
+                      child: CustomText(
+                        text: AppStrings.login,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ],
                 ),
-              )
-            ],
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }

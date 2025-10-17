@@ -1,15 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../../../core/app_routes/app_routes.dart';
 import '../../../../../../utils/app_colors/app_colors.dart';
 import '../../../../../../utils/app_icons/app_icons.dart';
-import '../../../../../components/custom_button/custom_button.dart';
 import '../../../../../components/custom_image/custom_image.dart';
 
 class PaymentMethoodCard extends StatefulWidget {
-  const PaymentMethoodCard({super.key});
+  const PaymentMethoodCard({super.key, this.onSelect});
+  final Function(String)? onSelect;
 
   @override
   State<PaymentMethoodCard> createState() => _PaymentMethoodCardState();
@@ -17,11 +15,8 @@ class PaymentMethoodCard extends StatefulWidget {
 
 class _PaymentMethoodCardState extends State<PaymentMethoodCard> {
   final List<Map<String, dynamic>> paymentMethods = [
-    {'title': 'UPI', 'icon': AppIcons.upi},
-    {'title': 'Wallet', 'icon': AppIcons.wallet},
-    {'title': 'Credit/Debit Card', 'icon': AppIcons.cradit},
-    {
-      'title': 'Apple Pay / Google Pay', 'icon': AppIcons.apple},
+    {'title': 'Paypal', 'icon': AppIcons.wallet},
+    {'title': 'Stripe', 'icon': AppIcons.wallet},
   ];
 
   final RxInt selectedIndex = 0.obs;
@@ -35,14 +30,11 @@ class _PaymentMethoodCardState extends State<PaymentMethoodCard> {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(right: 27,left: 28,top:20,bottom: 38 ),
+          padding: const EdgeInsets.only(right: 27,left: 28,top:20,bottom: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Select Payment Method",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-              ),
+               Text("Select Payment Method", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),),
               const SizedBox(height: 14),
               ...paymentMethods.asMap().entries.map((entry) {
                 int index = entry.key;
@@ -50,7 +42,10 @@ class _PaymentMethoodCardState extends State<PaymentMethoodCard> {
                 bool isSelected = selectedIndex.value == index;
 
                 return GestureDetector(
-                  onTap: () => selectedIndex.value = index,
+                    onTap: () {
+                      selectedIndex.value = index;
+                      widget.onSelect?.call(method['title']);
+                    },
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 10),
                     padding: const EdgeInsets.symmetric(
@@ -94,18 +89,6 @@ class _PaymentMethoodCardState extends State<PaymentMethoodCard> {
                   ),
                 );
               }),
-              const SizedBox(height: 28),
-              CustomButton(
-                onTap: () {
-                  Get.toNamed(AppRoutes.confarmation);
-                },
-                title: "Confirm & Pay \$21.50",
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                fillColor: AppColors.primary,
-                height: 60,
-                borderRadius: 59,
-              ),
             ],
           ),
         ),

@@ -128,7 +128,7 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 50,
+                          horizontal: 40,
                           vertical: 18,
                         ),
                         decoration: BoxDecoration(
@@ -143,14 +143,14 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16),
+
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(AppRoutes.updateScreen);
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 20,
+                          horizontal: 15,
                           vertical: 18,
                         ),
                         decoration: BoxDecoration(
@@ -190,7 +190,7 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: 'About Bar',
+                      text: 'About Restaurant',
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
