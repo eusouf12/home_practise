@@ -82,7 +82,7 @@ Issued At: ${data['issuedAt']}
                   QrImageView(
                     data: readableText,
                     version: QrVersions.auto,
-                    size: 300.0,
+                    size: 300,
                     backgroundColor: Colors.white,
                   ),
                   const SizedBox(height: 40),
