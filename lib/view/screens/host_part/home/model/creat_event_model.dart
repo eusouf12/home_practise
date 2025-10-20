@@ -495,12 +495,13 @@ class EventPost {
   final String? caption;
   final String? comments;
   final int? react;
+  final  bool isReacted;
   final int? comment;
   final int? share;
   final int? followup;
   final DateTime? createdAt;
 
-  EventPost( {this.id, this.eventId,this.comments,  this.userId, this.content, this.caption,this.react, this.comment, this.share, this.followup, this.createdAt,});
+  EventPost( {this.id,required this.isReacted, this.eventId,this.comments,  this.userId, this.content, this.caption,this.react, this.comment, this.share, this.followup, this.createdAt,});
 
   factory EventPost.fromJson(Map<String, dynamic> json) => EventPost(
     id: json['_id'],
@@ -510,6 +511,7 @@ class EventPost {
     comments: json['comments'],
     caption: json['caption'],
     react: json['react'] ?? 0,
+    isReacted: json["isReact"],
     comment: json['comment'] ?? 0,
     share: json['share'] ?? 0,
     followup: json['followup'] ?? 0,

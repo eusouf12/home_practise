@@ -10,6 +10,7 @@ import '../../../../../../utils/app_icons/app_icons.dart';
 import '../../../../../components/custom_button/custom_button.dart';
 import '../../../../../components/custom_gradient/custom_gradient.dart';
 import '../../../../../components/custom_image/custom_image.dart';
+import '../../../../../components/custom_loader/custom_loader.dart';
 import '../../../../../components/custom_text/custom_text.dart';
 import '../../../../host_part/home/controller/home_controller.dart';
 import '../../controller/home_controller/dm_home_controller.dart';
@@ -43,6 +44,7 @@ class ConfirmBooking extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child:Obx((){
                   final event = dmHomeController.specificEvent.value!;
+                  dmHomeController.saveTicketInfo(event);
                   final int ticket = dmHomeController.ticketCount;
                   final int price = event.audienceSettings!.price!;
                   final int totalPrice = calculateTotalPrice(ticket, price);
@@ -112,6 +114,7 @@ class ConfirmBooking extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 8,),
+                                //Price per Ticket
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -132,13 +135,10 @@ class ConfirmBooking extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(height: 8,),
-
                               ],
                             ),
                           ),
-
                           //total pay
-
                           Padding(
                             padding: const EdgeInsets.only(bottom: 30,top: 13),
                             child: Card(
@@ -169,14 +169,20 @@ class ConfirmBooking extends StatelessWidget {
                           PaymentMethoodCard(
                             onSelect: (method){
                               selectedMethod = method;
-                              debugPrint("$selectedMethod");
                             },
                           ),
                           SizedBox(height: 20,),
-                          CustomButton(
+                          Obx(() => (selectedMethod == "Paypal"?dmHomeController.isPayment.value :dmHomeController.isPaymentStripe.value)
+                              ? const CustomLoader()
+                              : CustomButton(
                             onTap: () {
+                              SharePrefsHelper.setInt('TicketPrice', totalPrice);
                               // Get.toNamed(AppRoutes.confarmation);
-                              dmHomeController.paymentMethod(totalPrise: totalPrice,selectedMethod: selectedMethod, ticketCount: ticket,);
+                              debugPrint("selectedMethod: $selectedMethod");
+                              (selectedMethod == "Paypal"
+                                  ? dmHomeController.paymentMethod(totalPrise: totalPrice,selectedMethod: selectedMethod, ticketCount: ticket,)
+                                  : dmHomeController.paymentGetMethodStripe(totalPrise: totalPrice,selectedMethod: selectedMethod, ticketCount: ticket,)
+                              );
                             },
                             title: "Confirm & Pay \$ ${totalPrice}",
                             fontWeight: FontWeight.w600,
@@ -184,7 +190,9 @@ class ConfirmBooking extends StatelessWidget {
                             fillColor: AppColors.primary,
                             height: 60,
                             borderRadius: 59,
-                          ),
+                          ),),
+
+
                           SizedBox(height: 20,),
                         ],
                       ),

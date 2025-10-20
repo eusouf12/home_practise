@@ -69,7 +69,8 @@ class ApiUrl {
   static String loveEmoji= "/api/v1/memories_event/love_eemoji_memories_event_count";
   static String getFavouriteDetails({required String specificId}) => "/api/v1/favorite_event/find_by_specific_my_favorite_event/$specificId";
   static  String  nonEventNearbyGet({required String lat, required String lon, required String type})=> "/api/v1/event/nearest_location_ways_non_event?latitude=$lat&longitude=$lon&type=$type";
-
+  static String getPaymentStripe= "/api/v1/payment/create-onboarding-link";
+  static String postPaymentStripe= "/api/v1/payment/create-checkout-session";
 
   // map
   static const String getMap = "/map?sw_lat=18&sw_lng=89&ne_lat=24&ne_lng=92&category_id=68185fc91db8477bce1fade2";

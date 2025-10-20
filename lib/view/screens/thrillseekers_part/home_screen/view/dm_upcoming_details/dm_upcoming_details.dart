@@ -53,10 +53,7 @@ class DmUpcomingDetails extends StatelessWidget {
             final eventLocation = dmHomeController.specificEvent.value?.audienceSettings?.eventLocation;
             final ticketType = dmHomeController.specificEvent.value?.audienceSettings?.ticketPrice;
             if (eventLocation != null) {
-               homeController.getPlaceNameFromCoordinates(
-                eventLocation.lat ?? "",
-                eventLocation.lon ?? "",
-              );
+               homeController.getPlaceNameFromCoordinates(eventLocation.lat ?? "", eventLocation.lon ?? "",);
             }
             return   Column(
               children: [
@@ -80,17 +77,19 @@ class DmUpcomingDetails extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            //event title
                             Row(
                               children: [
-                                Expanded(child: CustomText(
+                                Expanded(
+                                  child: CustomText(
                                      text: event.eventTitle??" ",
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w700,
                                     bottom: 4,
                                     maxLines: 2,
                                     textAlign: TextAlign.start,
-                                  ),),
+                                  ),
+                                ),
+
                                 EventCountdown(event: event,),
                               ],
                             ),
@@ -139,8 +138,7 @@ class DmUpcomingDetails extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Get.toNamed(AppRoutes.venueFacility,
-                                        arguments: event.venueFacilities);
+                                    Get.toNamed(AppRoutes.venueFacility, arguments: event.venueFacilities);
                                   },
                                   child: Container(
                                     height: 48,
@@ -188,6 +186,7 @@ class DmUpcomingDetails extends StatelessWidget {
 
                             const SizedBox(height: 16),
 
+                            //quantity
                             ticketType == "paid"
                                 ? Column(
                               children: [
@@ -211,7 +210,6 @@ class DmUpcomingDetails extends StatelessWidget {
                               ],
                             )
                                 : const SizedBox.shrink(),
-
                           ],
                         ),
                       ),
@@ -219,7 +217,6 @@ class DmUpcomingDetails extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 21),
-                //btn
                 ticketType == "paid"
                     ? Column(
                   children: [
@@ -239,7 +236,6 @@ class DmUpcomingDetails extends StatelessWidget {
                   ],
                 )
                     : const SizedBox.shrink(),
-
               ],
             );
           }),

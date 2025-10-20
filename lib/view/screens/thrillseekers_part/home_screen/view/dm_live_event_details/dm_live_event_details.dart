@@ -452,7 +452,7 @@ class DmLiveEventDetails extends StatelessWidget {
                                 totalReacts: post.react ?? 0,
                                 totalComments: post.comment ?? 0,
                                 share: post.share,
-                                isReacted: true,
+                                isReacted: post.isReacted,
                                 onLikePressed: () {
                                   dmHomeController.toggleReact(post.id!);
                                 },

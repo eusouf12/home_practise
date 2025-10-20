@@ -79,7 +79,9 @@ class _PaymentMethoodCardState extends State<PaymentMethoodCard> {
                           ),
                         ),
                         Icon(
-                          isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
+                          isSelected
+                              ? Icons.radio_button_checked
+                              : Icons.radio_button_off,
                           color: isSelected ? AppColors.primary : Colors.grey,
                         ),
                       ],

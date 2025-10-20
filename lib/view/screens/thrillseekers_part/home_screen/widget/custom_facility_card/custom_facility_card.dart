@@ -8,8 +8,8 @@ class CustomFacilityCard extends StatefulWidget {
   final String title;
   final String description;
   final Widget? preicon;
-  final Widget? posticonUp; // custom posticon for expanded state
-  final Widget? posticonDown; // custom posticon for collapsed state
+  final Widget? posticonUp;
+  final Widget? posticonDown;
 
   const CustomFacilityCard({
     super.key,

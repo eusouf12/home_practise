@@ -222,7 +222,6 @@ class _CreateScreenState extends State<CreateScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Header with toggle
                               InkWell(
                                 onTap: () {
                                   setState(() {
@@ -272,14 +271,11 @@ class _CreateScreenState extends State<CreateScreen> {
                                   padding: const EdgeInsets.all(15),
                                   decoration: BoxDecoration(
                                     color: Colors.transparent,
-                                    border: Border.all(
-                                        color: const Color(0xff96C9B8),
-                                        width: 1),
+                                    border: Border.all(color: const Color(0xff96C9B8), width: 1),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       CustomFormCard(
                                         title: "Washroom",
@@ -302,14 +298,12 @@ class _CreateScreenState extends State<CreateScreen> {
                                       CustomFormCard(
                                         title: "Food Court",
                                         hintText: "Enter Food Court Area",
-                                        controller: homeController
-                                            .foodCourtController.value,
+                                        controller: homeController.foodCourtController.value,
                                       ),
                                       CustomFormCard(
                                         title: "Rest Area",
                                         hintText: "Enter Rest Area",
-                                        controller: homeController
-                                            .restAreaController.value,
+                                        controller: homeController.restAreaController.value,
                                       ),
                                     ],
                                   ),
@@ -880,7 +874,6 @@ class _CreateScreenState extends State<CreateScreen> {
                         ///submit btn
                         CustomButton(
                           onTap: () async{
-
                             await homeController.getCoordinates(homeController.locationController.value.text.trim());
                             debugPrint("Location =======: ${homeController.locationController.value.text}");
                             debugPrint("Latttttt =======: ${homeController.latitude}");
@@ -888,24 +881,13 @@ class _CreateScreenState extends State<CreateScreen> {
 
                             if (_formKey.currentState!.validate()) {
                               // Check all required fields (example: title, description, date, location)
-                              if (homeController.titleController.value.text.isEmpty ||
-                                  homeController.descriptionController.value.text.isEmpty) {
-                                // Show error if any field is missing
-                                showCustomSnackBar(
-                                  "Please fill all required fields before submitting",
-                                  isError: true,
-                                );
-                                return; // Stop execution, don't call API
+                              if (homeController.titleController.value.text.isEmpty || homeController.descriptionController.value.text.isEmpty) {
+                                showCustomSnackBar("Please fill all required fields before submitting", isError: true,);
+                                return;
                               }
-
-                              // All fields are valid, call API
                               homeController.createEvent();
                             } else {
-                              // Form validation failed (if you have validators)
-                              showCustomSnackBar(
-                                "Please correct errors in the form",
-                                isError: true,
-                              );
+                              showCustomSnackBar("Please correct errors in the form", isError: true,);
                             }
                           },
                           title: "Submit",

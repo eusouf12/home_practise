@@ -187,7 +187,7 @@ class AppRoutes {
     GetPage(name: dmFilter, page: () => DmFilter()),
     GetPage(name: confirmBooking, page: () => ConfirmBooking()),
     GetPage(name: confarmation, page: () => Confirmation()),
-    GetPage(name: qrConfirm, page: () => QrConfirm()),
+    // GetPage(name: qrConfirm, page: () => QrConfirm()),
     GetPage(name: invitedScreen, page: () => InvitedScreen()),
     GetPage(name: barRestaurants, page: () => BarResturentScreen()),
     GetPage(name: nonEvent, page: () => NonEventScreen()),

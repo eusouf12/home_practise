@@ -56,7 +56,6 @@ class DmUpcomingEventScreen extends StatelessWidget {
                   );
                 }
                 final upcomingEvents = dmHomeController.upcomingEvents[index];
-                 // debugPrint("=======================Upcoming Events: ${upcomingEvents.ticket_Price}");
                 return Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: CustomEventContainer(
@@ -78,8 +77,6 @@ class DmUpcomingEventScreen extends StatelessWidget {
                         String savedId = await SharePrefsHelper.getString('selectedEventId');
                         print("Selected Event ID from SharedPrefs: $savedId");
                         Get.toNamed(AppRoutes.dmUpcomingEventDetails);
-                        debugPrint("=======================Price: ${upcomingEvents.price}");
-
                       }
 
                     },

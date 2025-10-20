@@ -1,4 +1,3 @@
-import 'package:event_platform/service/api_url.dart';
 import 'package:event_platform/utils/app_const/app_const.dart';
 import 'package:event_platform/view/screens/host_part/social/model/socal_feed_model.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:timeago/timeago.dart' as timeago;
-
 import '../../../../../../core/app_routes/app_routes.dart';
 import '../../../../../../utils/app_colors/app_colors.dart';
 import '../../../../../components/custom_button/custom_button.dart';
@@ -154,7 +152,7 @@ class CustomLiveDetailsPost extends StatelessWidget {
                       onTap: onLikePressed,
                       child: Icon(
                         Icons.favorite,
-                        size: 35.r,
+                        size: 30.r,
                         color: isReacted ? AppColors.red : AppColors.black_02,
                       ),
                     ),
@@ -172,7 +170,7 @@ class CustomLiveDetailsPost extends StatelessWidget {
                       onTap: onCommentPressed,
                       child: Icon(
                         Icons.mode_comment,
-                        size: 35.r,
+                        size: 30.r,
                         color: AppColors.primary,
                       ),
                     ),
@@ -191,7 +189,7 @@ class CustomLiveDetailsPost extends StatelessWidget {
                       onTap: _sharePost,
                       child: Icon(
                         Icons.share,
-                        size: 35.r,
+                        size: 30.r,
                         color: AppColors.primary,
                       ),
                     ),

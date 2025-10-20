@@ -306,14 +306,12 @@ class _SocialScreenState extends State<SocialScreen> {
                                           socialController.posts[index];
 
                                       return DynamicCustomPost(
-                                        isFollowed:
-                                            socialController.isClicked.value,
+                                        isFollowed: socialController.isClicked.value,
                                         name: post.user.name,
                                         time: post.createdAt,
                                         post: post,
                                         caption: post.caption ?? '',
-                                        postImage: (post.content != null &&
-                                                post.content!.isNotEmpty)
+                                        postImage: (post.content != null && post.content!.isNotEmpty)
                                             ? '${ApiUrl.baseUrl}/${post.content}'
                                             : null,
                                         totalReacts: post.react.value,
@@ -362,85 +360,15 @@ class _SocialScreenState extends State<SocialScreen> {
                                           socialController.toggleFollow();
                                         },
                                         onSharePressed: () async {
-                                          Get.dialog(
-                                            const Center(child: CustomLoader()), barrierDismissible: false,);
-                                          final String caption = post.caption ??
-                                              'Hay! Check this out!';
-                                          final String? mediaUrl = (post.content != null && post.content!.isNotEmpty)
-                                              ? '${ApiUrl.baseUrl}/${post.content}'
-                                              : null;
+                                          Get.dialog(const Center(child: CustomLoader()), barrierDismissible: false,);
+                                          final String caption = post.caption ?? 'Hay! Check this out!';
+                                          final String? mediaUrl = (post.content != null && post.content!.isNotEmpty) ? '${ApiUrl.baseUrl}/${post.content}' : null;
 
-                                          await shareEventPost(
-                                            caption: caption,
-                                            fileUrl: mediaUrl,
-                                          );
+                                          await shareEventPost(caption: caption, fileUrl: mediaUrl,);
 
                                           Get.back();
                                         },
-                                     //   Eusof
-                                     //    onSharePressed: () async {
-                                     //      Get.dialog(
-                                     //        const Center(child: CustomLoader()),
-                                     //        barrierDismissible: false,
-                                     //      );
-                                     //
-                                     //      final String caption = post.caption ?? 'Hay! Check this out!';
-                                     //      final String? mediaUrl = (post.content != null && post.content!.isNotEmpty)
-                                     //          ? '${ApiUrl.baseUrl}/${post.content}'
-                                     //          : null;
-                                     //
-                                     //      bool shareSuccess = await shareEventPost(
-                                     //        caption: caption,
-                                     //        fileUrl: mediaUrl,
-                                     //      );
-                                     //
-                                     //      if (shareSuccess && shareStarted && post != null) {
-                                     //        final socialController = Get.find<SocialController>();
-                                     //        await socialController.sharePostAndCount(post!);
-                                     //      }
 
-                                          //Get.back(); // Close loader
-                                       // },
-                                        /*onSharePressed: () async {
-                                            Get.dialog(
-                                              const Center(child: CustomLoader()),
-                                              barrierDismissible: false,
-                                            );
-
-                                            final String caption = post.caption ?? 'Hay! Check this out!';
-                                            final String? mediaUrl = (post.content != null && post.content!.isNotEmpty)
-                                                ? '${ApiUrl.baseUrl}/${post.content}'
-                                                : null;
-
-                                            // Open share sheet
-                                            await shareEventPost(caption: caption, fileUrl: mediaUrl);
-
-                                            // Ask user if they actually shared
-                                            bool? didShare = await Get.dialog<bool>(
-                                              AlertDialog(
-                                                title: const Text("Confirm Share"),
-                                                content: const Text("Did you actually share this post?"),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () => Get.back(result: false),
-                                                    child: const Text("No"),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () => Get.back(result: true),
-                                                    child: const Text("Yes"),
-                                                  ),
-                                                ],
-                                              ),
-                                              barrierDismissible: false,
-                                            );
-
-                                            if (didShare == true && post != null) {
-                                              final socialController = Get.find<SocialController>();
-                                              await socialController.sharePostAndCount(post!);
-                                            }
-
-                                            Get.back(); // Close loader
-                                          },*/
                                         // onSharePressed: () async {
                                         //   final socialController =
                                         //       Get.find<SocialController>();
@@ -645,10 +573,7 @@ class _SocialScreenState extends State<SocialScreen> {
                               },
                               child: ListView.builder(
                                 padding: const EdgeInsets.all(10),
-                                itemCount: socialController.groups.length +
-                                    (socialController.isMoreLoadingGroup.value
-                                        ? 1
-                                        : 0),
+                                itemCount: socialController.groups.length + (socialController.isMoreLoadingGroup.value ? 1 : 0),
                                 itemBuilder: (context, index) {
                                   if (index == socialController.groups.length) {
                                     return const Center(child: CustomLoader());
@@ -657,9 +582,7 @@ class _SocialScreenState extends State<SocialScreen> {
                                   final group = socialController.groups[index];
                                   return CustomGroupCard(
                                     onTap: () {
-                                      Get.toNamed(
-                                          AppRoutes.hostLiveEventDetails,
-                                          arguments: group.id);
+                                      Get.toNamed(AppRoutes.hostLiveEventDetails, arguments: group.id);
                                     },
                                     img: group.eventId?.photo ?? "",
                                     groupName: group.groupName,
@@ -673,8 +596,7 @@ class _SocialScreenState extends State<SocialScreen> {
                         //ChatRoom
                         if (socialController.currentIndex.value == 2) {
                           return Obx(() {
-                            if (socialController.isLoadingChatRoom.value &&
-                                socialController.chatRooms.isEmpty) {
+                            if (socialController.isLoadingChatRoom.value && socialController.chatRooms.isEmpty) {
                               return const Center(child: CustomLoader());
                             }
 
@@ -691,27 +613,17 @@ class _SocialScreenState extends State<SocialScreen> {
 
                             return NotificationListener<ScrollNotification>(
                               onNotification: (scrollInfo) {
-                                if (!socialController
-                                        .isMoreLoadingChatRoom.value &&
-                                    scrollInfo.metrics.pixels ==
-                                        scrollInfo.metrics.maxScrollExtent &&
-                                    socialController.currentPageChatRoom <
-                                        socialController.totalPagesChatRoom) {
-                                  socialController.getAllChatRooms();
+                                if (!socialController.isMoreLoadingChatRoom.value && scrollInfo.metrics.pixels ==
+                                    scrollInfo.metrics.maxScrollExtent && socialController.currentPageChatRoom < socialController.totalPagesChatRoom) {
+                                    socialController.getAllChatRooms();
                                 }
                                 return true;
                               },
                               child: ListView.builder(
-                                padding:
-                                    EdgeInsets.only(top: 10.h, bottom: 10.h),
-                                itemCount: socialController.chatRooms.length +
-                                    (socialController
-                                            .isMoreLoadingChatRoom.value
-                                        ? 1
-                                        : 0),
+                                padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
+                                itemCount: socialController.chatRooms.length + (socialController.isMoreLoadingChatRoom.value ? 1 : 0),
                                 itemBuilder: (context, index) {
-                                  if (index ==
-                                      socialController.chatRooms.length) {
+                                  if (index == socialController.chatRooms.length) {
                                     return const Center(child: CustomLoader());
                                   }
 
@@ -728,10 +640,7 @@ class _SocialScreenState extends State<SocialScreen> {
                                         borderRadius:
                                             BorderRadius.circular(10.r),
                                         boxShadow: const [
-                                          BoxShadow(
-                                              color: Colors.black12,
-                                              blurRadius: 4,
-                                              offset: Offset(0, 2)),
+                                          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
                                         ],
                                       ),
                                       child: Row(
@@ -742,9 +651,7 @@ class _SocialScreenState extends State<SocialScreen> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              CustomText(
-                                                text:
-                                                    chatroom.chatRoomName ?? "",
+                                              CustomText(text: chatroom.chatRoomName ?? "",
                                                 fontSize: 16.w,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -757,21 +664,12 @@ class _SocialScreenState extends State<SocialScreen> {
                                             ],
                                           ),
                                           Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 15.w,
-                                                vertical: 8.h),
+                                            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 8.h),
                                             decoration: BoxDecoration(
                                               color: const Color(0xffDCFCE7),
-                                              borderRadius:
-                                                  BorderRadius.circular(30.r),
+                                              borderRadius: BorderRadius.circular(30.r),
                                             ),
-                                            child: Center(
-                                              child: CustomText(
-                                                text: "Chat",
-                                                fontSize: 14.w,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
+                                            child: Center(child: CustomText(text: "Chat", fontSize: 14.w, fontWeight: FontWeight.w500,),),
                                           ),
                                         ],
                                       ),
@@ -839,95 +737,4 @@ Future<void> shareEventPost({
     await Share.share(caption);
   }
 }
-// bool shareStarted = false;
-// Future<bool> shareEventPost({
-//   required String caption,
-//   String? fileUrl,
-// }) async {
-//   try {
-//     shareStarted = true;
-//     if (fileUrl != null && fileUrl.isNotEmpty) {
-//       final uri = Uri.parse(fileUrl);
-//       final res = await http.get(uri);
-//
-//       if (res.statusCode == 200) {
-//         final bytes = res.bodyBytes;
-//         final tempDir = await getTemporaryDirectory();
-//         final fileName = fileUrl.split('/').last;
-//         final filePath = '${tempDir.path}/$fileName';
-//         final file = File(filePath);
-//         await file.writeAsBytes(bytes);
-//
-//         if (file.path.endsWith('.mp4') ||
-//             file.path.endsWith('.mov') ||
-//             file.path.endsWith('.avi')) {
-//           await Share.shareXFiles(
-//             [XFile(file.path, mimeType: 'video/mp4')],
-//             text: caption.isNotEmpty ? caption : "Check this event!",
-//           );
-//         } else {
-//           await Share.shareXFiles(
-//             [XFile(file.path, mimeType: 'image/*')],
-//             text: caption.isNotEmpty ? caption : "Check this event!",
-//           );
-//         }
-//         return true;
-//       } else {
-//         await Share.share(caption);
-//         return true;
-//       }
-//     } else {
-//       await Share.share(caption);
-//       return true;
-//     }
-//   } catch (e) {
-//     debugPrint("Error sharing post: $e");
-//     await Share.share(caption);
-//     return false;
-//   }
-// }
-//
-//
-// Future<bool> shareEventPost({
-//   required String caption,
-//   String? fileUrl,
-// }) async {
-//   try {
-//     if (fileUrl != null && fileUrl.isNotEmpty) {
-//       final uri = Uri.parse(fileUrl);
-//       final res = await http.get(uri);
-//       if (res.statusCode == 200) {
-//         final bytes = res.bodyBytes;
-//         final tempDir = await getTemporaryDirectory();
-//         final fileName = fileUrl.split('/').last;
-//         final filePath = '${tempDir.path}/$fileName';
-//         final file = File(filePath);
-//         await file.writeAsBytes(bytes);
-//
-//         if (file.path.endsWith('.mp4') ||
-//             file.path.endsWith('.mov') ||
-//             file.path.endsWith('.avi')) {
-//           await Share.shareXFiles(
-//             [XFile(file.path, mimeType: 'video/mp4')],
-//             text: caption,
-//           );
-//         } else {
-//           await Share.shareXFiles(
-//             [XFile(file.path, mimeType: 'image/*')],
-//             text: caption,
-//           );
-//         }
-//         return true; // share sheet opened successfully
-//       } else {
-//         await Share.share(caption);
-//         return true;
-//       }
-//     } else {
-//       await Share.share(caption);
-//       return true;
-//     }
-//   } catch (e) {
-//     debugPrint("Error sharing post: $e");
-//     return false;
-//   }
-// }
+

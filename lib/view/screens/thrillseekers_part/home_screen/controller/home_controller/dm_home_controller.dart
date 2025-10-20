@@ -17,7 +17,10 @@ import '../../../../../../utils/app_colors/app_colors.dart';
 import '../../../../../../utils/app_const/app_const.dart';
 import '../../../../host_part/event/controller/event_controller.dart';
 import '../../../../host_part/home/model/creat_event_model.dart';
+import '../../model/payment_model.dart';
+import '../../view/Stripe_Screen/StripeWebViewScreen.dart';
 import '../../view/papal_payment_page/papal_payment_page.dart';
+import '../../view/stripe_payment_page/stripe_web_view_screen.dart';
 import '../../widget/custom_map_icon/custom_markers.dart';
 
 class DmHomeController extends GetxController {
@@ -40,6 +43,15 @@ class DmHomeController extends GetxController {
   //   bool current = isFollowedMap[postId] ?? false;
   //   isFollowedMap[postId] = !current;
   // }
+
+  // Storing selected ticket info
+  int totalTicketPrice = 0;
+  Rx<CreateEventModel?> ticketInfo = Rx<CreateEventModel?>(null);
+  void saveTicketInfo(CreateEventModel event) async{
+    totalTicketPrice  =  await SharePrefsHelper.getInt('TicketPrice');
+    ticketInfo.value = event;
+  }
+
 
   RxInt selectedIndex = 0.obs;
   final rxRequestStatus = Status.loading.obs;
@@ -115,8 +127,7 @@ class DmHomeController extends GetxController {
   // Get live events details
   int ticketCount = 0;
   Future<void> getLiveEventDetails() async {
-    final int ticket =  await SharePrefsHelper.getInt('totalTicket');
-    ticketCount = ticket;
+    ticketCount =  await SharePrefsHelper.getInt('totalTicket');
     try {
       String liveEventId = await SharePrefsHelper.getString('selectedEventId');
       final response = await ApiClient.getData(ApiUrl.liveEventDetails(eventId: liveEventId) );
@@ -526,7 +537,91 @@ class DmHomeController extends GetxController {
       debugPrint("Payment error: $e");
     } finally {
       isPayment.value = false;
-      update();
+    }
+  }
+
+  // ==========post Payment method Stripe======
+  RxBool isPostPaymentStripe = false.obs;
+
+
+  Future<void> paymentPostMethodStripe({required String selectedMethod, required int totalPrise, required int ticketCount,}) async {
+    try {
+      isPostPaymentStripe.value = true;
+
+      Map<String, dynamic> body = {
+        "price": totalPrise,
+        "eventId": "${ticketInfo.value!.id!}",
+        "ticketCount": ticketCount,
+        "description": "Confirm Your Ticket Price"
+      };
+
+      debugPrint("Api Body: $body");
+
+      final response = await ApiClient.postData(ApiUrl.postPaymentStripe, jsonEncode(body));
+      final jsonResponse = response.body is String
+          ? jsonDecode(response.body)
+          : response.body as Map<String, dynamic>;
+
+      debugPrint("Api jsonResponse: $jsonResponse");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final checkoutUrl = jsonResponse['data']?['checkoutUrl'];
+
+        if (checkoutUrl != null && checkoutUrl.toString().isNotEmpty) {
+          await Get.to(() => StripeWebViewScreen2(onboardingUrl: checkoutUrl));
+        }
+        else {
+          showCustomSnackBar("checkoutUrl URL not found!", isError: true);
+        }
+      } else {
+        showCustomSnackBar(jsonResponse['message']?.toString() ?? "Payment failed!", isError: true);
+      }
+    } catch (e) {
+      showCustomSnackBar("Error: $e", isError: true);
+      debugPrint("Payment error: $e");
+    } finally {
+      isPostPaymentStripe.value = false;
+    }
+  }
+
+
+  // ==========Get Payment method Stripe======
+
+  RxBool isPaymentStripe = false.obs;
+
+  Future<void> paymentGetMethodStripe({required String selectedMethod, required int totalPrise, required int ticketCount,}) async {
+    try {
+      isPaymentStripe.value = true;
+
+      final response = await ApiClient.getData(ApiUrl.getPaymentStripe);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final stripeModel = StripeResponse.fromJson(response.body);
+
+        final onboarding = stripeModel.data.onboardingUrl;
+
+        if ((onboarding.cardPayments != null && onboarding.transfers != null)) {
+          await paymentPostMethodStripe(selectedMethod: selectedMethod, totalPrise: totalPrise, ticketCount: ticketCount);
+          showCustomSnackBar("Stripe account already active!", isError: false);
+          debugPrint("Active");
+        }
+
+        else if (onboarding.url != null && onboarding.url!.isNotEmpty) {
+          debugPrint("===== == Create screen =========");
+           Get.to(() => StripeWebViewScreen(onboardingUrl: onboarding.url!));
+        }
+        else {
+          showCustomSnackBar("Onboarding URL not found!", isError: true);
+        }
+      } else {
+        final message = response.body['message']?.toString() ?? "Payment failed!";
+        showCustomSnackBar(message, isError: true);
+      }
+    } catch (e) {
+      showCustomSnackBar("Error: $e", isError: true);
+      debugPrint("Payment error: $e");
+    } finally {
+      isPaymentStripe.value = false;
     }
   }
 

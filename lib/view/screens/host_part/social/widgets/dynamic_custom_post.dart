@@ -149,7 +149,7 @@ class DynamicCustomPost extends StatelessWidget {
                           onTap: onLikePressed,
                           child: Icon(
                             Icons.favorite,
-                            size: 35.r,
+                            size: 30.r,
                             color: isReacted ? AppColors.red : AppColors.black_02,
                           ),
                         ),
@@ -167,7 +167,7 @@ class DynamicCustomPost extends StatelessWidget {
                           onTap: onCommentPressed,
                           child: Icon(
                             Icons.mode_comment,
-                            size: 35.r,
+                            size: 30.r,
                             color:AppColors.primary,
                           ),
                         ),
@@ -185,7 +185,7 @@ class DynamicCustomPost extends StatelessWidget {
                           onTap: _sharePost,
                           child: Icon(
                             Icons.share,
-                            size: 35.r,
+                            size: 30.r,
                             color: AppColors.primary,
                           ),
                         ),
