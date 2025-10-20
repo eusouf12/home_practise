@@ -53,6 +53,7 @@ class DmLiveEvent extends StatelessWidget {
                   );
                 }
                 final event = dmHomeController.events[index];
+               // debugPrint("Event length=============${dmHomeController.events.length}");
                 return Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: CustomEventContainer(

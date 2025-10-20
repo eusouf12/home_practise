@@ -87,9 +87,8 @@ class FavouriteController extends GetxController {
   int currentPage = 1;
   int totalPages = 1;
 
-  /// ==========================
+
   /// Fetch Favourite Events API
-  /// ==========================
   Future<void> getFavouriteNonEvent() async {
     if (currentPage > totalPages) return;
 
@@ -150,6 +149,8 @@ class FavouriteController extends GetxController {
 
   Future<void> deleteFavorite({required String deleteId}) async {
     try {
+      var bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken);
+      debugPrint("=================${bearerToken}");
       final response = await ApiClient.deleteData(
         ApiUrl.deleteFavouriteList(deleteId: deleteId),
       );
@@ -175,25 +176,22 @@ class FavouriteController extends GetxController {
     }
   }
 
+  Future<void> updateFavoriteOnServer(String deleteId, bool isFavorite) async {
+    try {
+      final endpoint = isFavorite
+          ? ApiUrl.addFavouriteList(addId: deleteId)
+          : ApiUrl.deleteFavouriteList(deleteId: deleteId);
 
-
-
-  // Future<void> updateFavoriteOnServer(String deleteId, bool isFavorite) async {
-  //   try {
-  //     final endpoint = isFavorite
-  //         ? ApiUrl.addFavouriteList(addId: deleteId)
-  //         : ApiUrl.deleteFavouriteList(deleteId: deleteId);
-  //
-  //     final response = await ApiClient.postData(endpoint, {});
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       debugPrint("Favorite updated successfully");
-  //     } else {
-  //       debugPrint("Failed to update favorite status on server");
-  //     }
-  //   } catch (e) {
-  //     debugPrint("Error updating favorite status: $e");
-  //   }
-  // }
+      final response = await ApiClient.postData(endpoint, {});
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        debugPrint("Favorite updated successfully");
+      } else {
+        debugPrint("Failed to update favorite status on server");
+      }
+    } catch (e) {
+      debugPrint("Error updating favorite status: $e");
+    }
+  }
 
   // GALLERY - CREATE & MANAGE POSTS
   final List<String> tabNames = ["All", "Photo", "Video"];
@@ -250,7 +248,8 @@ class FavouriteController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         showCustomSnackBar(
-          jsonResponse['message']?.toString() ?? "Gallery Post created successfully!",
+          jsonResponse['message']?.toString() ??
+              "Gallery Post created successfully!",
           isError: false,
         );
         resetPostFields();
@@ -305,7 +304,7 @@ class FavouriteController extends GetxController {
   var isMoreMemoriesLoading = false.obs;
   int currentPageMemories = 1;
   int totalPagesMemories = 1;
-  String currentFilter = "all";
+  String currentFilter = "all"; // <-- track current filter
 
   final rxFavouriteMemoriesStatus = Status.loading.obs;
 
@@ -370,8 +369,6 @@ class FavouriteController extends GetxController {
     }
   }
 
-
-
 // Tab change handler
   void changeTab(int index) {
     selectedTabIndex.value = index;
@@ -380,7 +377,6 @@ class FavouriteController extends GetxController {
     currentPageMemories = 1;
     totalPagesMemories = 1;
 
-    // Clear existing list
     myMemoriesList.clear();
 
     // Fetch based on tab
@@ -410,7 +406,6 @@ class FavouriteController extends GetxController {
   Future<void> getFavouriteDetails({required String specificId}) async {
     setFavouriteDetailsStatus(Status.loading);
     isLoadingDetails.value = true;
-
     try {
       final response = await ApiClient.getData(
         ApiUrl.getFavouriteDetails(specificId: specificId),
@@ -446,7 +441,6 @@ class FavouriteController extends GetxController {
 
 
   // Gallery post react logic
-
   RxBool isClicked = false.obs;
   void toggleLove() {
     isClicked.value = !isClicked.value;
@@ -466,7 +460,6 @@ class FavouriteController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         showCustomSnackBar("Reaction updated", isError: false);
 
-        // ✅ কেবল ওই page রিফ্রেশ করো
         await getMyMemories(
           contentType: currentFilter,
           page: currentPage,
@@ -483,8 +476,6 @@ class FavouriteController extends GetxController {
       update();
     }
   }
-
-
 
 
   ///------ Nearby Bar Location----- ///
@@ -511,7 +502,9 @@ class FavouriteController extends GetxController {
     }
 
     try {
-      final response = await ApiClient.getData(ApiUrl.nonEventNearbyGet(lat: lat, lon: lon, type: type),);
+      final response = await ApiClient.getData(
+        ApiUrl.nonEventNearbyGet(lat: lat, lon: lon, type: type),
+      );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final model = MyFavoriteEventModel.fromJson(response.body);

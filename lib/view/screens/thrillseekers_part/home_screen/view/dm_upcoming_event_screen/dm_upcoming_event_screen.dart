@@ -56,7 +56,7 @@ class DmUpcomingEventScreen extends StatelessWidget {
                   );
                 }
                 final upcomingEvents = dmHomeController.upcomingEvents[index];
-
+                 // debugPrint("=======================Upcoming Events: ${upcomingEvents.ticket_Price}");
                 return Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: CustomEventContainer(
@@ -66,15 +66,24 @@ class DmUpcomingEventScreen extends StatelessWidget {
                     img: '${ApiUrl.baseUrl}/${upcomingEvents.photo }??AppConstants.profileImage',
                     attendees: upcomingEvents.type == "past"? true:false,
                     price: upcomingEvents.type != "past"? true:false,
+                    ticketPrice: upcomingEvents.price,
+                    ticketType: upcomingEvents.ticket_Price,
                     liveButton: true,
                     pastEvent: upcomingEvents.type == "past"? false:true,
                     UpcomingEvent: upcomingEvents.type != "past"?false:true,
-                    onTap: ()async{
-                      await SharePrefsHelper.setString('selectedEventId', upcomingEvents.id);
-                      String savedId = await SharePrefsHelper.getString('selectedEventId');
-                      print("Selected Event ID from SharedPrefs: $savedId");
-                      Get.toNamed(AppRoutes.dmUpcomingEventDetails);
+                    onTap: () async {
+                      // Check if event type is NOT "past"
+                      if (upcomingEvents.type != "past") {
+                        await SharePrefsHelper.setString('selectedEventId', upcomingEvents.id);
+                        String savedId = await SharePrefsHelper.getString('selectedEventId');
+                        print("Selected Event ID from SharedPrefs: $savedId");
+                        Get.toNamed(AppRoutes.dmUpcomingEventDetails);
+                        debugPrint("=======================Price: ${upcomingEvents.price}");
+
+                      }
+
                     },
+
                   ),
                 );
               },

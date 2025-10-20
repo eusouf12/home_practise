@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../helper/shared_prefe/shared_prefe.dart';
 import '../../../../../service/api_client.dart';
 import '../../../../../service/api_url.dart';
@@ -92,9 +93,15 @@ class SocialController extends GetxController {
     }
 
     try {
-      var response = await ApiClient.getData(
-        ApiUrl.allHostEventChatRoom(page: currentPageChatRoom),
-      );
+      String role=  await SharePrefsHelper.getString(AppConstants.role);
+      debugPrint("Roleeeeeeeeeeeeeeeeee=====${role}");
+      dynamic response;
+      if(role=="host"){
+        response = await ApiClient.getData( ApiUrl.allHostEventChatRoom(page: currentPageGroup),);
+      }
+      else{
+        response = await ApiClient.getData( ApiUrl.allDmChatRoom(page: currentPageGroup),);
+      }
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = response.body['data'];
@@ -153,7 +160,15 @@ class SocialController extends GetxController {
       isMoreLoadingGroup.value = true;
     }
     try {
-      var response = await ApiClient.getData( ApiUrl.allHostEventGroup(page: currentPageGroup),);
+      String role=  await SharePrefsHelper.getString(AppConstants.role);
+      debugPrint("Roleeeeeeeeeeeeeeeeee=====${role}");
+      dynamic response;
+      if(role=="host"){
+         response = await ApiClient.getData( ApiUrl.allHostEventGroup(page: currentPageGroup),);
+      }
+     else{
+         response = await ApiClient.getData( ApiUrl.allDmGroup(page: currentPageGroup),);
+      }
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = response.body['data'];
@@ -182,9 +197,27 @@ class SocialController extends GetxController {
     }
   }
 
+// =================== CREATE POST CONTROLLER ===================
+  /// To store the selected image file
+  var selectedImage = Rx<File?>(null);
+
 // =================== SOCIAL FEED VARIABLES ===================
+  /// Observable list to hold the tagged people's names or IDs
   var taggedPeople = <String>[].obs;
+
+  /// Loading state for the "Post" button
   var isCreatingPost = false.obs;
+
+  /// ImagePicker instance
+  final ImagePicker _picker = ImagePicker();
+
+  /// Method to pick an image from the gallery
+  Future<void> pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      selectedImage.value = File(image.path);
+    }
+  }
 
   /// Add a tag to the list
   void addTag() {
@@ -200,35 +233,24 @@ class SocialController extends GetxController {
     taggedPeople.remove(tag);
   }
 
-
-  // =================== CREATE POST CONTROLLER ===================
-  var selectedImage = Rx<File?>(null);
-  final ImagePicker _picker = ImagePicker();
-
-  /// Method to pick an image from the gallery
-  Future<void> pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      selectedImage.value = File(image.path);
-    }
-  }
-
-
   /// Controllers for text fields
   final captionController = TextEditingController();
   final tagController = TextEditingController();
   final locationNameController = TextEditingController();
 
-  // Main method to create the post
+  /// Main method to create the post
   Future<void> createPost() async {
     try {
       if (selectedImage.value == null && captionController.text.isEmpty) {
         showCustomSnackBar("Please upload a photo or video or caption");
         return;
       }
+
       isCreatingPost.value = true;
 
+      // Construct the 'Data' part of your multipart request
       Map<String, dynamic> body = {
+        // "eventId": eventId,
         "caption": captionController.text,
         "content": locationNameController.text,
         "tag_people": taggedPeople.toList(),
@@ -263,6 +285,7 @@ class SocialController extends GetxController {
         Get.back();
         getAllPosts(isRefresh: true);
         resetCreatePostFields();
+        //Get.offAllNamed(AppRoutes.socialScreen);
       } else {
         showCustomSnackBar(
           jsonResponse['message']?.toString() ?? "Create post failed",
@@ -276,7 +299,7 @@ class SocialController extends GetxController {
     }
   }
 
-  // Clears all fields and selections on the create post screen
+  /// Clears all fields and selections on the create post screen
   void resetCreatePostFields() {
     selectedImage.value = null;
     captionController.clear();
@@ -506,18 +529,10 @@ class SocialController extends GetxController {
   }
 
 
-// =================== Social post React Logic ===================
-//(Mehedi & Eusof) vai Don't cut this code before finalizing the project
-
- // RxBool isClicked = false.obs;
- //  void togglePostLove({required bool isClicked}) {
- //    isClicked = !isClicked;
- //    debugPrint("React clicked: ${isClicked}");
- //  }
-
   Future<void> toggleReact(String postId) async {
     try {
-      final response = await http.post(Uri.parse("${ApiUrl.baseUrl}${ApiUrl.reactPost}"),
+      final response = await http.post(
+        Uri.parse("${ApiUrl.baseUrl}${ApiUrl.reactPost}"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "${ApiClient.bearerToken}",
@@ -528,7 +543,7 @@ class SocialController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
         if (data["success"] == true) {
-          await getAllPosts(isRefresh: true);
+          await getAllPosts(isRefresh: false);
         } else {
           Get.snackbar("Error", data["message"] ?? "Something went wrong");
         }
@@ -539,47 +554,6 @@ class SocialController extends GetxController {
       Get.snackbar("Error", e.toString());
     }
   }
-/*  Future<void> toggleReact(PostModel post) async {
-
-    post.isReacted.value = !post.isReacted.value;
-    if (post.isReacted.value) {
-      post.react.value++;
-    } else {
-      if (post.react.value > 0) {
-        post.react.value--;
-      }
-    }
-
-    try {
-      final response = await ApiClient.postData(
-        ApiUrl.reactPost,
-        jsonEncode({"eventpostId": post.id}),
-      );
-      if (response.statusCode != 200 && response.statusCode != 201) {
-        Get.snackbar("Error", "Failed to sync reaction. Please try again.");
-        post.isReacted.value = !post.isReacted.value;
-        if (post.isReacted.value) {
-          post.react.value++;
-        } else {
-          if (post.react.value > 0) {
-            post.react.value--;
-          }
-        }
-      }
-
-
-    } catch (e) {
-      Get.snackbar("Error", "An error occurred: $e");
-      post.isReacted.value = !post.isReacted.value;
-      if (post.isReacted.value) {
-        post.react.value++;
-      } else {
-        if (post.react.value > 0) {
-          post.react.value--;
-        }
-      }
-    }
-  }*/
 
 // =================== Social post comment Logic ===================
   var comments = <AllCommentPost>[].obs;
@@ -785,16 +759,15 @@ class SocialController extends GetxController {
 
 // ===================== Extension =====================
 extension StoryGrouping on SocialController {
-  // Map userId → List<FeedModel>
   Map<String, List<FeedModel>> get storiesGroupedByUser {
     final Map<String, List<FeedModel>> grouped = {};
 
     for (var story in stories) {
       for (var feed in story.feeds) {
-        // Skip empty/invalid feeds
+
         if ((feed.content == null || feed.content!.isEmpty) &&
             (feed.message == null || feed.message!.isEmpty)) {
-          continue; // skip this feed
+          continue;
         }
 
         final userId = feed.userId;

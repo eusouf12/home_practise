@@ -148,8 +148,7 @@ class GalleryScreen extends StatelessWidget {
                           height: 400.h,
                           child: NotificationListener<ScrollNotification>(
                             onNotification: (ScrollNotification scrollInfo) {
-                              if (!controller.isMoreMemoriesLoading.value &&
-                                  scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+                              if (!controller.isMoreMemoriesLoading.value && scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
                                 controller.getMyMemories(contentType: controller.currentFilter);
                                 return true;
                               }

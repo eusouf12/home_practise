@@ -222,8 +222,6 @@ import 'package:event_platform/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import '../../../../../service/api_url.dart';
 import '../../../../../utils/app_colors/app_colors.dart';
 import '../../../../components/custom_from_card/custom_from_card.dart';
 import '../../../../components/custom_gradient/custom_gradient.dart';

@@ -33,8 +33,8 @@ class _EventCountdownState extends State<EventCountdown> {
 
     // Combine date & startingTime from backend
     final dateTimeString =
-        '${DateFormat('yyyy-MM-dd').format(widget.event.date!)} ${widget.event.startingTime!.trim()}';
-    final eventDateTime = DateFormat('yyyy-MM-dd HH:mm').parse(dateTimeString);
+        '${DateFormat('dd-MM-yyyy').format(widget.event.date!)} ${widget.event.startingTime!.trim()}';
+    final eventDateTime = DateFormat('dd-MM-yyyy HH:mm').parse(dateTimeString);
     final now = DateTime.now();
     final remaining = eventDateTime.difference(now);
 

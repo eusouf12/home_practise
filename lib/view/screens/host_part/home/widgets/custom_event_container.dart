@@ -26,8 +26,13 @@ class CustomEventContainer extends StatelessWidget {
     this.liveButton=false,
     this.pastEvent=false,
     this.UpcomingEvent=false,
+    this.ticketPrice,
+    this.ticketType
+
   });
 
+  final int? ticketPrice;
+  final String? ticketType;
   final String? title;
   final String? img;
   final VoidCallback? onTap;
@@ -178,13 +183,29 @@ class CustomEventContainer extends StatelessWidget {
                        ),
                      ],
                    ):Container(),
-                   price == true ? Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       CustomText(text: "Price", fontSize: 16.w,fontWeight: FontWeight.w500,),
-                       CustomText(text: "\$20",left: 10.w, fontSize: 16.w,fontWeight: FontWeight.w500,),
-                     ],
-                   ):Container(),
+                   if (ticketPrice == null)
+                     CustomText(
+                       text: "Free",
+                       fontSize: 16.w,
+                       fontWeight: FontWeight.w500,
+                       textAlign: TextAlign.start,
+                     )
+                   else
+                     Row(
+                       children: [
+                         CustomText(
+                           text: "Price",
+                           fontSize: 16.w,
+                           fontWeight: FontWeight.w500,
+                         ),
+                         CustomText(
+                           text: "\$ ${ticketPrice ?? 0}",
+                           left: 10.w,
+                           fontSize: 16.w,
+                           fontWeight: FontWeight.w500,
+                         ),
+                       ],
+                     ),
                    Spacer(),
                    update == true ? GestureDetector(onTap:onTapUpdate, child: CustomImage(imageSrc: AppImages.pen)) : Container(),
                    rating == true ? Row(

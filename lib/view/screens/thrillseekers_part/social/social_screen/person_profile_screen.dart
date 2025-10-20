@@ -30,15 +30,15 @@ class _PersonProfileScreenState extends State<PersonProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final data= Get.arguments;
-    final String userName = data[0];
+    final String userID = data[0];
     final String userPhoto = data[1];
-    final String userID = data[2];
+    final String userName = data[2];
     return CustomGradient(
       child: SafeArea(
         child: Scaffold(
           appBar: CustomRoyelAppbar(leftIcon: true, titleName: userName),
           backgroundColor: Colors.transparent,
-          /*body: SingleChildScrollView(
+          body: SingleChildScrollView(
             child: Obx((){
 
               if (socialController.rxRequestStatus.value == Status.loading && socialController.posts.isEmpty) {
@@ -225,23 +225,16 @@ class _PersonProfileScreenState extends State<PersonProfileScreen> {
                           '${ApiUrl.baseUrl}/${userPhoto?? ''}',
                           userName: socialController
                               .getUserName(userName),
-                          isReacted: post.isReacted.value,
+                          isReacted: post.isReacted,
                           onLikePressed: () {
                             socialController.toggleReact(
-                                socialController.posts[index]);
+                                socialController.posts[index] as String);
                           },
                           onCommentPressed: () async {
-                            final String postId =
-                                socialController.posts[index].id;
-                            final String userId = socialController
-                                .posts[index].user.id;
-                            debugPrint(
-                                "Post ID: $postId+ User ID:$userId");
-                            await SharePrefsHelper.setString(
-                                'selectedPostId', postId);
-                            String savedId =
-                            await SharePrefsHelper.getString(
-                                'selectedPostId');
+                            final String postId = socialController.posts[index].id;
+                            final String userId = socialController.posts[index].user.id;debugPrint("Post ID: $postId+ User ID:$userId");
+                            await SharePrefsHelper.setString('selectedPostId', postId);
+                            String savedId = await SharePrefsHelper.getString('selectedPostId');
                             showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
@@ -286,7 +279,7 @@ class _PersonProfileScreenState extends State<PersonProfileScreen> {
               );
             }),
 
-          ),*/
+          ),
         ),
       ),
     );

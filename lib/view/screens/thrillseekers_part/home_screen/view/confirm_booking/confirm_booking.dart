@@ -11,6 +11,7 @@ import '../../../../../components/custom_button/custom_button.dart';
 import '../../../../../components/custom_gradient/custom_gradient.dart';
 import '../../../../../components/custom_image/custom_image.dart';
 import '../../../../../components/custom_text/custom_text.dart';
+import '../../../../host_part/home/controller/home_controller.dart';
 import '../../controller/home_controller/dm_home_controller.dart';
 import '../../widget/custom_live_details/custom_live_comment.dart';
 import '../../widget/middle_details/middle_details.dart';
@@ -19,6 +20,7 @@ import '../../widget/payment_method_card/payment_method_card.dart';
 class ConfirmBooking extends StatelessWidget {
   ConfirmBooking({super.key});
   final DmHomeController dmHomeController = Get.put(DmHomeController());
+  final homeController = Get.find<HomeController>();
   int calculateTotalPrice(int ticketCount, int ticketPrice) {
     return ticketCount * ticketPrice;
   }
@@ -42,8 +44,15 @@ class ConfirmBooking extends StatelessWidget {
                 child:Obx((){
                   final event = dmHomeController.specificEvent.value!;
                   final int ticket = dmHomeController.ticketCount;
-                  final int price = 30;
+                  final int price = event.audienceSettings!.price!;
                   final int totalPrice = calculateTotalPrice(ticket, price);
+                  final eventLocation = dmHomeController.specificEvent.value?.audienceSettings?.eventLocation;
+                  if (eventLocation != null) {
+                    homeController.getPlaceNameFromCoordinates(
+                      eventLocation.lat ?? "",
+                      eventLocation.lon ?? "",
+                    );
+                  }
                   return Column(
                     children: [
                       // song+date+location
@@ -52,7 +61,7 @@ class ConfirmBooking extends StatelessWidget {
                           MiddleDetails(
                             title: event.eventTitle??" ",
                             isTrue: true,
-                            location: "Downtown LA",
+                            location: homeController.placeName.value,
                             date: "${event.date != null ? DateFormat('dd-MM-yyyy').format(event.date!) : ''} - ${event.startingTime}",
                           ),
                           //Ticket Information
@@ -160,6 +169,7 @@ class ConfirmBooking extends StatelessWidget {
                           PaymentMethoodCard(
                             onSelect: (method){
                               selectedMethod = method;
+                              debugPrint("$selectedMethod");
                             },
                           ),
                           SizedBox(height: 20,),

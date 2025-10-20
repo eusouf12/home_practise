@@ -13,6 +13,7 @@ import '../../../../../components/custom_button/custom_button.dart';
 import '../../../../../components/custom_gradient/custom_gradient.dart';
 import '../../../../../components/custom_loader/custom_loader.dart';
 import '../../../../../components/custom_text/custom_text.dart';
+import '../../../../host_part/home/controller/home_controller.dart';
 import '../../../profile/controller/dm_profile_controller.dart';
 import '../../controller/home_controller/dm_home_controller.dart';
 import '../../widget/custom_ticket_count/custom_ticket_count.dart';
@@ -24,6 +25,7 @@ class DmUpcomingDetails extends StatelessWidget {
   final DmHomeController dmHomeController = Get.put(DmHomeController());
   final DmProfileController dmProfileController = Get.put(DmProfileController());
   final CounterController counterController = Get.put(CounterController());
+  final homeController = Get.find<HomeController>();
 
 
   @override
@@ -48,6 +50,14 @@ class DmUpcomingDetails extends StatelessWidget {
               return  Center(child: Text("No live events details found"));
             }
             final event = dmHomeController.specificEvent.value!;
+            final eventLocation = dmHomeController.specificEvent.value?.audienceSettings?.eventLocation;
+            final ticketType = dmHomeController.specificEvent.value?.audienceSettings?.ticketPrice;
+            if (eventLocation != null) {
+               homeController.getPlaceNameFromCoordinates(
+                eventLocation.lat ?? "",
+                eventLocation.lon ?? "",
+              );
+            }
             return   Column(
               children: [
                  SizedBox(height: 20),
@@ -70,19 +80,17 @@ class DmUpcomingDetails extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            //event title
                             Row(
                               children: [
-                                Expanded(
-                                  child: CustomText(
+                                Expanded(child: CustomText(
                                      text: event.eventTitle??" ",
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w700,
                                     bottom: 4,
-                                     maxLines: 2,
+                                    maxLines: 2,
                                     textAlign: TextAlign.start,
-                                  ),
-                                ),
-
+                                  ),),
                                 EventCountdown(event: event,),
                               ],
                             ),
@@ -131,21 +139,22 @@ class DmUpcomingDetails extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Get.toNamed(AppRoutes.venueFacility);
+                                    Get.toNamed(AppRoutes.venueFacility,
+                                        arguments: event.venueFacilities);
                                   },
                                   child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 16,
-                                    ),
+                                    height: 48,
+                                    width: 121,
                                     decoration: BoxDecoration(
                                       color: AppColors.greyLight,
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
                                     ),
                                     alignment: Alignment.center,
-                                    child: const CustomText(
+                                    child: CustomText(
                                       text: 'Venue Facility',
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -173,30 +182,36 @@ class DmUpcomingDetails extends StatelessWidget {
                             // middle
                             MiddleDetails(
                               title: event.eventTitle??" ",
-                              location: "Downtown LA",
+                              location: homeController.placeName.value,
                               date: "${event.date != null ? DateFormat('dd-MM-yyyy').format(event.date!) : ''} - ${event.startingTime}",
                             ),
 
                             const SizedBox(height: 16),
 
-                            const Divider(thickness: 1, color: AppColors.primary),
-                            const SizedBox(height: 20),
-                            Row(
+                            ticketType == "paid"
+                                ? Column(
                               children: [
-                                 CustomText(
-                                  text: "Quantity",
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400,
-                                   color: AppColors.primary,
+                                Divider(thickness: 1, color: AppColors.primary),
+                                Row(
+                                  children: [
+                                    CustomText(
+                                      text: "Quantity",
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.primary,
+                                    ),
+                                    Spacer(),
+                                    Obx(() => CustomTimeCount(
+                                      value: counterController.counter.value,
+                                      onIncrement: counterController.increment,
+                                      onDecrement: counterController.decrement,
+                                    )),
+                                  ],
                                 ),
-                                 Spacer(),
-                                Obx(() => CustomTimeCount(
-                                  value: counterController.counter.value,
-                                  onIncrement: counterController.increment,
-                                  onDecrement: counterController.decrement,
-                                )),
                               ],
-                            ),
+                            )
+                                : const SizedBox.shrink(),
+
                           ],
                         ),
                       ),
@@ -204,19 +219,27 @@ class DmUpcomingDetails extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 21),
-                CustomButton(
-                  onTap: () {
-                    int total = counterController.counter.value;
-                    SharePrefsHelper.setInt('totalTicket', total);
-                    Get.toNamed(AppRoutes.confirmBooking);
-                  },
-                  height: 70,
-                  fillColor: AppColors.primary,
-                  title: "Book a ticket",
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-                const SizedBox(height: 77),
+                //btn
+                ticketType == "paid"
+                    ? Column(
+                  children: [
+                    CustomButton(
+                      onTap: () {
+                        int total = counterController.counter.value;
+                        SharePrefsHelper.setInt('totalTicket', total);
+                        Get.toNamed(AppRoutes.confirmBooking);
+                      },
+                      height: 70,
+                      fillColor: AppColors.primary,
+                      title: "Book a ticket",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    const SizedBox(height: 77),
+                  ],
+                )
+                    : const SizedBox.shrink(),
+
               ],
             );
           }),

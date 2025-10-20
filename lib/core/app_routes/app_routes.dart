@@ -183,7 +183,7 @@ class AppRoutes {
      GetPage(name: dmLiveEventDetails, page: () => DmLiveEventDetails()),
      GetPage(name: dmUpcomingEventScreen, page: () => DmUpcomingEventScreen()),
      GetPage(name: dmUpcomingEventDetails, page: () => DmUpcomingDetails()),
-    GetPage(name: venueFacility, page: () => VenueFacility()),
+    GetPage(name: venueFacility, page: () => VenueFacilityScreen()),
     GetPage(name: dmFilter, page: () => DmFilter()),
     GetPage(name: confirmBooking, page: () => ConfirmBooking()),
     GetPage(name: confarmation, page: () => Confirmation()),

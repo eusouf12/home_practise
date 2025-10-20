@@ -4,11 +4,11 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart' as loc;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import '../../../../../../core/app_routes/app_routes.dart';
 import '../../../../../../helper/shared_prefe/shared_prefe.dart';
 import '../../../../../../service/api_client.dart';
 import '../../../../../../service/api_url.dart';
@@ -33,11 +33,13 @@ class DmHomeController extends GetxController {
       selectedImage.value = File(image.path);
     }
   }
-  RxMap<String, bool> isFollowedMap = <String, bool>{}.obs;
-  void toggleFollow(String postId) {
-    bool current = isFollowedMap[postId] ?? false;
-    isFollowedMap[postId] = !current;
-  }
+
+  //Follow === Not done yet
+  // RxMap<String, bool> isFollowedMap = <String, bool>{}.obs;
+  // void toggleFollow(String postId) {
+  //   bool current = isFollowedMap[postId] ?? false;
+  //   isFollowedMap[postId] = !current;
+  // }
 
   RxInt selectedIndex = 0.obs;
   final rxRequestStatus = Status.loading.obs;
@@ -268,9 +270,9 @@ class DmHomeController extends GetxController {
 
     try {
       String eventId = await SharePrefsHelper.getString('selectedEventId');
-      final response = await ApiClient.getData(
-        ApiUrl.liveEventGetPost(eventId: eventId, page: currentPageUnderLivePost),
-      );
+      String pageName = await SharePrefsHelper.getString('pageName');
+
+      final response = await ApiClient.getData(ApiUrl.liveEventGetPost(eventId: eventId, page: currentPageUnderLivePost));
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final model = EventPostResponse.fromJson(response.body);
@@ -287,21 +289,77 @@ class DmHomeController extends GetxController {
           posts.addAll(newPosts);
         }
 
+
         setRequestStatus(Status.completed);
       } else {
-        setRequestStatus(Status.error);
-        Get.snackbar("Error", "Failed to load posts.");
-      }
+    setRequestStatus(Status.error);
+    Get.snackbar("Error", "Failed to load posts.");
+    }
     } catch (e, stack) {
-      setRequestStatus(Status.error);
-      debugPrint(" Error fetching posts: $e");
-      debugPrint(stack.toString());
+    setRequestStatus(Status.error);
+    debugPrint(" Error fetching posts: $e");
+    debugPrint(stack.toString());
     } finally {
-      isMoreLoadingPosts.value = false;
-      isLoadingPosts.value = false;
+    isMoreLoadingPosts.value = false;
+    isLoadingPosts.value = false;
     }
   }
 
+  //React function
+  Future<void> toggleReact(String postId) async {
+    try {
+      final response = await http.post(
+        Uri.parse("${ApiUrl.baseUrl}${ApiUrl.reactPost}"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "${ApiClient.bearerToken}",
+        },
+        body: jsonEncode({"eventpostId": postId}),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        if (data["success"] == true) {
+          await getAllPosts(isRefresh: false);
+        } else {
+          Get.snackbar("Error", data["message"] ?? "Something went wrong");
+        }
+      } else {
+        Get.snackbar("Error", "Failed to react on post");
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    }
+  }
+
+  //follow function
+  Future<void> toggleFollow(String userId) async {
+    try {
+      Map<String, dynamic> body = {
+        "eventpostId": userId,
+      };
+      final  response = await ApiClient.postData(ApiUrl.addFollowLiveDetailsPage, jsonEncode(body),);
+
+      final jsonResponse = response.body is String
+          ? jsonDecode(response.body)
+          : response.body as Map<String, dynamic>;
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonEncode(response.body);
+
+        showCustomSnackBar(
+            jsonResponse['message']?.toString() ?? "Followed successfully!",
+            isError: false
+        );
+        await getAllPosts(isRefresh: false);
+      }
+      else {
+        Get.snackbar("Error", "Failed to Follow");
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    }
+
+  }
   // ============= Create Under live events Post ===========
   var isCreatingPost = false.obs;
   final captionController = TextEditingController();
@@ -538,4 +596,7 @@ class DmHomeController extends GetxController {
       }
     });
   }
+
+
+
 }

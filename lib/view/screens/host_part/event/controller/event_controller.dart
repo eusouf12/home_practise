@@ -155,8 +155,10 @@ class Event {
   final int? maxCapacity;
   final String? type;
   final int? price;
+  final String? ticket_Price;
 
   Event({
+    this.ticket_Price,
     required this.id,
     this.eventTitle,
     this.date,
@@ -184,6 +186,7 @@ class Event {
       maxCapacity: json['max_capacity'] ?? json['audience_settings']?['max_capacity'],
       type: json['type'],
       price: json['price'],
+      ticket_Price: json['ticket_price'],
       createdAt: json['createdAt'],
     );
   }

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../../../core/app_routes/app_routes.dart';
 import '../../../../../../service/api_url.dart';
 import '../../../../../../utils/app_const/app_const.dart';
+import '../../../../../../utils/app_strings/app_strings.dart';
 import '../../../../../components/custom_gradient/custom_gradient.dart';
 import '../../../../../components/custom_loader/custom_loader.dart';
 import '../../../../../components/custom_nav_bar/dm_navbar.dart';
@@ -24,9 +25,9 @@ class FavouriteScreen extends StatelessWidget {
     return CustomGradient(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: const CustomRoyelAppbar(
+        appBar:  CustomRoyelAppbar(
           leftIcon: false,
-          titleName: "Favorite",
+          titleName: AppStrings.favorite,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

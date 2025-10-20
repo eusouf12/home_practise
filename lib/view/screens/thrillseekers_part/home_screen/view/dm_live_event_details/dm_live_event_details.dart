@@ -177,7 +177,8 @@ class DmLiveEventDetails extends StatelessWidget {
                               //Venue
                               GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(AppRoutes.venueFacility);
+                                  Get.toNamed(AppRoutes.venueFacility,
+                                  arguments: event.venueFacilities);
                                 },
                                 child: Container(
                                   height: 48,
@@ -264,27 +265,6 @@ class DmLiveEventDetails extends StatelessWidget {
                                 left: 7,
                                 right: 15,
                               ),
-                              Container(
-                                height: 37.83,
-                                width: 37.83,
-                                decoration: BoxDecoration(
-                                  color: Colors.white, // Optional background color
-                                  border: Border.all(
-                                    color: AppColors.green, // Border color
-                                    width: 3, // Border width
-                                  ),
-                                  borderRadius: BorderRadius.circular(
-                                    30,
-                                  ), // Optional rounded corners
-                                ),
-                                child: Center(
-                                  child: CustomText(
-                                    text: 'Good',
-                                    fontSize: 8,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -363,35 +343,119 @@ class DmLiveEventDetails extends StatelessWidget {
                             ),
                           ),
                         ),
-
                         SizedBox(height: 30,),
-                        ListView.builder(
-                          itemCount: dmHomeController.posts.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            final post = dmHomeController.posts[index];
-                            final postId = post.id ?? '';
-
-                            return Obx(() {
-                              bool isFollowed = dmHomeController.isFollowedMap[postId] ?? false;
+                        //Ata niye pore kaj hobe aro
+                        // ListView.builder(
+                        //   itemCount: dmHomeController.posts.length,
+                        //   shrinkWrap: true,
+                        //   physics: const NeverScrollableScrollPhysics(),
+                        //   itemBuilder: (context, index) {
+                        //     final post = dmHomeController.posts[index];
+                        //     final postId = post.id ?? '';
+                        //
+                        //     return Obx(() {
+                        //       //bool isFollowed = dmHomeController.isFollowedMap[postId] ?? false;
+                        //
+                        //       return CustomLiveDetailsPost(
+                        //        // isFollowed: isFollowed,
+                        //         name: post.userId?.name ?? "Unknown User",
+                        //         profileImage: (post.userId?.photo != null && post.userId!.photo!.isNotEmpty) ? '${ApiUrl.baseUrl}/${post.userId!.photo}' : AppConstants.profileImage,
+                        //         time: post.createdAt ?? DateTime.now(),
+                        //         userName: dmHomeController.getUserName(post.userId?.name?? ""),
+                        //         //post+Title
+                        //         postImage: (post.content != null && post.content!.isNotEmpty) ? '${ApiUrl.baseUrl}/${post.content}' : "",
+                        //         caption: post.caption ?? '',
+                        //         //Rect+comment+share
+                        //         totalReacts: post.react ?? 0,
+                        //         totalComments: post.comment ?? 0,
+                        //         share: post.share,
+                        //         isReacted: true,
+                        //         onLikePressed: () {
+                        //            dmHomeController.toggleReact(post.id!);
+                        //         },
+                        //         onCommentPressed: () async {
+                        //           final String postId = post.id!;
+                        //           final String userId = post.userId?.id ?? "";
+                        //           showModalBottomSheet(
+                        //             context: context,
+                        //             isScrollControlled: true,
+                        //             useSafeArea: true,
+                        //             backgroundColor: Colors.transparent,
+                        //             builder: (context) {
+                        //               return Padding(
+                        //                 padding: EdgeInsets.only(
+                        //                   bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+                        //                 ),
+                        //                 child: CommentScreen(userId: userId, postId: postId),
+                        //               );
+                        //             },
+                        //           );
+                        //         },
+                        //         //User section
+                        //         onProfileClicked: () {
+                        //           Get.toNamed(
+                        //             AppRoutes.personProfileScreen,
+                        //             arguments: [
+                        //               post.userId?.id ?? "",
+                        //               post.userId?.photo,
+                        //               post.userId?.name,
+                        //             ],
+                        //           );
+                        //         },
+                        //         //Share section
+                        //         onSharePressed: () async {
+                        //           Get.dialog(
+                        //             const Center(child: CircularProgressIndicator()),
+                        //             barrierDismissible: false,
+                        //           );
+                        //           final String caption = post.caption ?? 'Hey! Check this out!';
+                        //           final String? mediaUrl = (post.content != null && post.content!.isNotEmpty)
+                        //               ? '${ApiUrl.baseUrl}/${post.content}'
+                        //               : null;
+                        //
+                        //           // await shareEventPost(
+                        //           //   caption: caption,
+                        //           //   fileUrl: mediaUrl,
+                        //           // );
+                        //           Get.back();
+                        //         },
+                        //
+                        //         onFollowPressed: () {
+                        //           dmHomeController.toggleFollow(post.userId!.id!);
+                        //           debugPrint("User Id====================${post.userId!.id!}");
+                        //         },
+                        //         post: null,
+                        //       );
+                        //     });
+                        //   },
+                        // )
+                        Obx(() {
+                          return ListView.builder(
+                            itemCount: dmHomeController.posts.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              final post = dmHomeController.posts[index];
+                              final postId = post.id ?? '';
 
                               return CustomLiveDetailsPost(
-                                isFollowed: isFollowed,
                                 name: post.userId?.name ?? "Unknown User",
-                                postImage: (post.content != null && post.content!.isNotEmpty)
-                                    ? '${ApiUrl.baseUrl}/${post.content}'
-                                    : "",
-                                time: post.createdAt ?? DateTime.now(),
-                                caption: post.caption ?? '',
                                 profileImage: (post.userId?.photo != null && post.userId!.photo!.isNotEmpty)
                                     ? '${ApiUrl.baseUrl}/${post.userId!.photo}'
                                     : AppConstants.profileImage,
+                                time: post.createdAt ?? DateTime.now(),
+                                userName: dmHomeController.getUserName(post.userId?.name ?? ""),
+                                postImage: (post.content != null && post.content!.isNotEmpty)
+                                    ? '${ApiUrl.baseUrl}/${post.content}'
+                                    : "",
+                                caption: post.caption ?? '',
                                 totalReacts: post.react ?? 0,
                                 totalComments: post.comment ?? 0,
-                                totalShare: post.share ?? 0,
-                                isReacted: false,
-                                onLikePressed: () {},
+                                share: post.share,
+                                isReacted: true,
+                                onLikePressed: () {
+                                  dmHomeController.toggleReact(post.id!);
+                                },
                                 onCommentPressed: () async {
                                   final String postId = post.id!;
                                   final String userId = post.userId?.id ?? "";
@@ -410,22 +474,6 @@ class DmLiveEventDetails extends StatelessWidget {
                                     },
                                   );
                                 },
-                                onSharePressed: () async {
-                                  Get.dialog(
-                                    const Center(child: CircularProgressIndicator()),
-                                    barrierDismissible: false,
-                                  );
-                                  final String caption = post.caption ?? 'Hey! Check this out!';
-                                  final String? mediaUrl = (post.content != null && post.content!.isNotEmpty)
-                                      ? '${ApiUrl.baseUrl}/${post.content}'
-                                      : null;
-
-                                  // await shareEventPost(
-                                  //   caption: caption,
-                                  //   fileUrl: mediaUrl,
-                                  // );
-                                  Get.back();
-                                },
                                 onProfileClicked: () {
                                   Get.toNamed(
                                     AppRoutes.personProfileScreen,
@@ -436,14 +484,31 @@ class DmLiveEventDetails extends StatelessWidget {
                                     ],
                                   );
                                 },
+                                onSharePressed: () async {
+                                  Get.dialog(
+                                    const Center(child: CustomLoader()), barrierDismissible: false,);
+                                  final String caption = post.caption ??
+                                      'Hay! Check this out!';
+                                  final String? mediaUrl = (post.content != null && post.content!.isNotEmpty)
+                                      ? '${ApiUrl.baseUrl}/${post.content}'
+                                      : null;
+
+                                  await shareEventPost(
+                                    caption: caption,
+                                    fileUrl: mediaUrl,
+                                  );
+
+                                  Get.back();
+                                },
                                 onFollowPressed: () {
-                                  dmHomeController.toggleFollow(postId);
+                                  dmHomeController.toggleFollow(post.id!);
                                 },
                                 post: null,
                               );
-                            });
-                          },
-                        )
+                            },
+                          );
+                        }),
+
 
 
                       ],

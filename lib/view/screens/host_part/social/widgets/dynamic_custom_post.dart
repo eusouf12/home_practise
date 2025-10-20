@@ -1,13 +1,12 @@
 import 'package:event_platform/utils/app_const/app_const.dart';
-import 'package:event_platform/view/components/custom_loader/custom_loader.dart';
 import 'package:event_platform/view/screens/host_part/social/model/socal_feed_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../../../../../core/app_routes/app_routes.dart';
 import '../../../../../utils/app_colors/app_colors.dart';
-import '../../../../components/custom_button/custom_button.dart';
 import '../../../../components/custom_netwrok_image/custom_network_image.dart';
 import '../../../../components/custom_text/custom_text.dart';
 import '../controller/social_controller.dart';
@@ -162,12 +161,6 @@ class DynamicCustomPost extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // _buildStatRow(
-                    //   icon: Icons.mode_comment,
-                    //   color: AppColors.primary,
-                    //   count: totalComments.toString(),
-                    //   onPressed: onCommentPressed!,
-                    // ),
                     Row(
                       children: [
                         GestureDetector(
@@ -186,16 +179,10 @@ class DynamicCustomPost extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // _buildStatRow(
-                    //   icon: Icons.share,
-                    //   color: AppColors.primary,
-                    //   count: post!.share.toString(),
-                    //   onPressed:onSharePressed!
-                    // ),
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: onLikePressed,
+                          onTap: _sharePost,
                           child: Icon(
                             Icons.share,
                             size: 35.r,
@@ -203,11 +190,11 @@ class DynamicCustomPost extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 6.w),
-                        CustomText(
-                          text: share.toString(),
-                          fontSize: 16.sp,
-                          color: AppColors.black,
-                        ),
+                        // CustomText(
+                        //   text: share.toString(),
+                        //   fontSize: 16.sp,
+                        //   color: AppColors.black,
+                        // ),
                       ],
                     ),
                   ],
@@ -219,44 +206,29 @@ class DynamicCustomPost extends StatelessWidget {
     );
   }
 
-  // Widget _buildStatRow({
-  //   required IconData icon,
-  //   required Color color,
-  //   required String count,
-  //   required VoidCallback onPressed,
-  // }) {
-  //   return Row(
-  //     children: [
-  //       IconButton(onPressed: onPressed, icon: Icon(icon), color: color),
-  //       CustomText(text: count, fontSize: 14.w, fontWeight: FontWeight.w700),
-  //     ],
-  //   );
-  // }
 
-/*
   /// ---------- Share Post Helper ----------
- */
-/* Future<void> _sharePost() async {
+ Future<void> _sharePost() async {
     try {
       if (postImage != null && postImage!.isNotEmpty) {
         await Share.share(
-            "Check out this post by $name!\n\n$caption\n\n$postImage");
+            "Hey! Check out this post by $name!\n\n$caption\n\n$postImage");
       } else {
         await Share.share("Check out this post by $name!\n\n$caption");
       }
-      if (post != null) {
-        final socialController = Get.find<SocialController>();
-        await socialController.sharePostAndCount(post!);
-      }
+      // if (post != null) {
+      //   final socialController = Get.find<SocialController>();
+      // //  await socialController.sharePostAndCount(post!);
+      // }
 
     } catch (e) {
       debugPrint("Share Error: $e");
       Get.snackbar("Error", "Could not share post");
     }
-  }*//*
+  }
 
 
-  /// ---------- Share Post Helper ----------
+/*  /// ---------- Share Post Helper ----------
   Future<void> _sharePost() async {
     try {
       Get.dialog(
@@ -311,9 +283,9 @@ class DynamicCustomPost extends StatelessWidget {
       Get.back(); // close loader
       Get.snackbar("Error", "Could not share post");
     }
-  }
+  }*/
 
-*/
+
 
 
 
@@ -326,91 +298,41 @@ class DynamicCustomPost extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.7,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Center(child: CustomText(text: "Report")),
-                const SizedBox(height: 10),
-                const CustomText(text: "Why are you reporting this post?"),
-                const SizedBox(height: 20),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title:
-                        const CustomText(text: "Spam / Irrelevant Content"),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () => Get.toNamed(AppRoutes.reportScreen),
-                      ),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: const CustomText(
-                            text: "Offensive / Abusive Language"),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () => Get.toNamed(AppRoutes.reportScreen),
-                      ),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: const CustomText(
-                            text: "Hate Speech / Discrimination"),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () => Get.toNamed(AppRoutes.reportScreen),
-                      ),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: const CustomText(
-                            text: "Fake / Misleading Information"),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () => Get.toNamed(AppRoutes.reportScreen),
-                      ),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: const CustomText(text: "Scam / Fraud"),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () => Get.toNamed(AppRoutes.reportScreen),
-                      ),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: const CustomText(
-                            text: "Sexual / Inappropriate Content"),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () => Get.toNamed(AppRoutes.reportScreen),
-                      ),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: const CustomText(text: "Violence / Threat"),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () => Get.toNamed(AppRoutes.reportScreen),
-                      ),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: const CustomText(text: "Copyright Violation"),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () => Get.toNamed(AppRoutes.reportScreen),
-                      ),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: const CustomText(text: "Other (Custom Reason)"),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () => Get.toNamed(AppRoutes.reportScreen),
-                      ),
-                    ],
+        return SafeArea(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.55,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Center(child: CustomText(text: "Report")),
+                  const SizedBox(height: 10),
+                  const CustomText(text: "Why are you reporting this post?"),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        _buildReportTile("Spam / Irrelevant Content"),
+                        _buildReportTile("Offensive / Abusive Language"),
+                        _buildReportTile("Hate Speech / Discrimination"),
+                        _buildReportTile("Fake / Misleading Information"),
+                        _buildReportTile("Scam / Fraud"),
+                        _buildReportTile("Sexual / Inappropriate Content"),
+                        _buildReportTile("Violence / Threat"),
+                        _buildReportTile("Copyright Violation"),
+                        _buildReportTile("Other (Custom Reason)", isCustom: true),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: CustomButton(
-                    title: "Next",
-                    onTap: () {},
-                  ),
-                ),
-              ],
+
+
+                  const SizedBox(height: 20),
+
+                ],
+              ),
             ),
           ),
         );
@@ -418,6 +340,30 @@ class DynamicCustomPost extends StatelessWidget {
     );
   }
 }
+
+
+Widget _buildReportTile(String text, {bool isCustom = false}) {
+  return ListTile(
+    dense: true,
+    visualDensity: const VisualDensity(vertical: -3),
+    contentPadding: EdgeInsets.zero,
+    title: CustomText(text: text),
+    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+    onTap: () {
+      if (isCustom) {
+        Get.toNamed(AppRoutes.reportScreen);
+      } else {
+        Get.toNamed(
+          AppRoutes.reportScreen,
+          arguments: {'reason': text},
+        );
+      }
+    },
+  );
+}
+
+
+
 
 
 

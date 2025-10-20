@@ -32,7 +32,7 @@ class CreateEventModel {
     DateTime? parsedDate;
     if (json["date"] != null && json["date"].toString().isNotEmpty) {
       try {
-        parsedDate = DateFormat('yyyy-MM-dd').parse(json["date"]);
+        parsedDate = DateFormat('dd-MM-yyyy').parse(json["date"]);
 
       } catch (e) {
         parsedDate = null;
@@ -113,6 +113,7 @@ class AudienceSettings {
      this.pointSystem,
      this.ticketPrice,
      this.eventLocation,
+    this.price,
   });
 
   String? age;
@@ -122,6 +123,7 @@ class AudienceSettings {
   Notification? notification;
   PointSystem? pointSystem;
   String? ticketPrice;
+  int? price;
   EventLocation? eventLocation;
 
   factory AudienceSettings.fromJson(Map<String, dynamic> json){
@@ -133,6 +135,7 @@ class AudienceSettings {
       notification: json["notification"] == null ? null : Notification.fromJson(json["notification"]),
       pointSystem: json["point_system"] == null ? null : PointSystem.fromJson(json["point_system"]),
       ticketPrice: json["ticket_price"],
+      price: json["price"],
       eventLocation: json["event_location"] == null ? null : EventLocation.fromJson(json["event_location"]),
     );
   }
@@ -379,8 +382,6 @@ class Meta {
 
 
 //  Get GroupModel host
-
-
 class GroupModel {
   final String id;
   final EventId? eventId;

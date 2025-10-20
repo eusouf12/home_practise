@@ -1,5 +1,5 @@
 class ApiUrl {
-  static const String baseUrl = "https://attending-marble-ron-spectrum.trycloudflare.com";
+  static const String baseUrl = "https://northeast-beijing-tuesday-sticky.trycloudflare.com";
   static const String imageUrl = "http://13.58.33.119:5000/";
   static String socketUrl = "http://13.58.33.119:5000";
   // server url :https://baghdad-spray-bryan-induced.trycloudflare.com
@@ -20,7 +20,9 @@ class ApiUrl {
   static  String  getEventById({required String eventId})=> "/api/v1/event/find_by_specific_event/$eventId";
   static String allHostEvent({required int page}) => "/api/v1/event/find_my_event_list?page=$page&limit=2";
   static String allHostEventChatRoom({required int page}) => "/api/v1/event_chat_room/find_by_my_event_chatroom?page=$page&limit=10";
+  static String allDmChatRoom({required int page}) => "/api/v1/event_chat_room/find_by_event_chat_room?searchTerm=sports?page=$page&limit=10";
   static String allHostEventGroup({required int page}) => "/api/v1/join_group/find_by_my_join_event_Group?page=$page&limit=10";
+  static String allDmGroup({required int page}) => "/api/v1/join_group/find_by_all_event_group?page=$page&limit=10";
   static String createPostEvent= "/api/v1/event_post/create_post_event";
   static String createStory= "/api/v1/social_feed_route/social_feed";
   static String getAllPosts({required int page}) =>  "/api/v1/followup/find_by_my_event_social_feed?page=$page&limit=10";
@@ -44,18 +46,21 @@ class ApiUrl {
   static String getGalleryPostFilter({required  int page, required String filter})=> "/api/v1/memories_event/find_my_upload_memories_event?contentType=$filter&page=$page&limit=10";
 
 
+
+
   static const String termsCondition = "/api/v1/setting/find_by_terms_conditions";
   static const String privacyPolicy = "/api/v1/setting/find_by_privacy_policys";
   static const String changePassword = "/api/v1/user/change_password";
 
    //String userId = await SharePrefsHelper.getString(AppConstants.userId);
   ///========================= Dm  =========================
-  static  String  dmLiveEvent({required String searchTime,required int page})=> "/api/v1/event/find_by_all_live_event_filtering?page=$page&limit=2&searchTerm=live&eventDate=$searchTime";
+  static  String  dmLiveEvent({required String searchTime,required int page})=> "/api/v1/event/find_by_all_live_event_filtering?page=$page&limit=10&searchTerm=live&eventDate=$searchTime";
   static  String  liveEventDetails({required String eventId})=> "/api/v1/event/find_by_specific_event/$eventId";
   static  String  liveEventCreatePost = "/api/v1/event_post/create_post_event";
-  static  String  liveEventGetPost({required String eventId,required int page})=> "/api/v1/event_post/find_by_all_specific_event_post_list/$eventId?page=1&limit=page=?$page";
+  static  String  liveEventGetPost({required String eventId,required int page})=> "/api/v1/event_post/find_by_all_specific_event_post_list/$eventId?page=$page&limit=10";
   static  String  postLiveComment = "/api/v1/event_social_post/live_event_comment";
   static  String  getLiveComment({required String eventId})=> "/api/v1/event_social_post/find_by_specific_live_comment/$eventId";
+  static  String  addFollowLiveDetailsPage= "/api/v1/followup/recorded_followup";
   static  String  dmUpcomingEvent({required int page})=> "/api/v1/event/find_by_all_upcomming_and_past_event?page=$page&limit=10";
   static  String  getFavouriteList({required int page})=>  "/api/v1/favorite_event/find_by_all_my_favorite_event?page=$page&limit=10";
   static  String  deleteFavouriteList({required String deleteId})=> "/api/v1/favorite_event/delete_my_favorite_event/$deleteId";
